@@ -9,11 +9,17 @@
 
 typedef std::shared_ptr<pd::Patch> PatchRef;
 
-class PdNode {
+class PdNode : public audio2::Node {
 public:
-	PdNode() {};
+	PdNode();
 	~PdNode();
-	void init();
+
+	void initialize() override;
+	void uninitialize() override;
+	void start() override;
+	void stop() override;
+	void process( audio2::Buffer *buffer );
+
 	PatchRef loadPatch(const std::string& name);
 
 	// thread-safe senders
@@ -24,14 +30,6 @@ public:
 	void sendMessage(const std::string& dest, const std::string& msg, const pd::List& list = pd::List());
 
 private:
-
 	pd::PdBase mPdBase;
-
-
 	std::mutex mMutex;
-
-	int mSampleRate;
-	int mNumInputs;
-	int mNumOutputs;
-	
 };

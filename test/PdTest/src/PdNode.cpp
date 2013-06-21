@@ -5,32 +5,58 @@
 using namespace std;
 using namespace ci;
 
+PdNode::PdNode()
+: Node()
+{
+}
+
 PdNode::~PdNode()
 {
 }
 
-// TODO: audio computation / play should be toggleable via play / stop
-void PdNode::init()
+void PdNode::initialize()
 {
-	mSampleRate = 44100;
-	mNumInputs = 0;
-	mNumOutputs = 2;
+	lock_guard<mutex> lock( mMutex );
 
-	lock_guard<mutex> lock(mMutex);
+	bool success = mPdBase.init( getNumChannels(), getNumChannels(), getContext()->getSampleRate() );
+	CI_ASSERT( success );
 
-	if( ! mPdBase.init( mNumInputs, mNumOutputs, mSampleRate ) ) {
-		LOG_E << "pd init failed" << endl;
-		return;
-	}
-	LOG_V << "pd init success";
-
-	mPdBase.computeAudio(true);
-
-//	mOutput = audio::Output::addTrack( audio::createCallback(this, &PdNode::audioCallback, false, mSampleRate, mNumOutputs) );
-//	mOutput->play();
+	// in libpd world, dsp computation is controlled through the process methods, so computeAudio is enabled until uninitialize
+	mPdBase.computeAudio( true );
+	mInitialized = true;
 }
 
-PatchRef PdNode::loadPatch(const std::string& patchName)
+void PdNode::uninitialize()
+{
+	lock_guard<mutex> lock( mMutex );
+
+	mPdBase.computeAudio( false );
+	mInitialized = false;
+}
+
+void PdNode::start()
+{
+
+	mEnabled = true;
+}
+
+void PdNode::stop()
+{
+
+	mEnabled = false;
+}
+
+void PdNode::process( audio2::Buffer *buffer )
+{
+	mMutex.lock();
+
+	int ticks = ioSampleCount / pd::PdBase::blockSize();
+	mPdBase.processFloat( ticks, buffer->getData(), buffer->getData() );
+
+	mMutex.unlock();
+}
+
+PatchRef PdNode::loadPatch( const std::string& patchName )
 {
 	lock_guard<mutex> lock(mMutex);
 	return PatchRef( new pd::Patch( mPdBase.openPatch( patchName, app::App::getResourcePath().string() ) ) );
