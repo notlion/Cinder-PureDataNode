@@ -5,8 +5,8 @@
 using namespace std;
 using namespace ci;
 
-PdNode::PdNode()
-: Node()
+PdNode::PdNode( const Format &format )
+: Node( format )
 {
 }
 

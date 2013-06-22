@@ -11,7 +11,7 @@ typedef std::shared_ptr<pd::Patch> PatchRef;
 
 class PdNode : public audio2::Node {
 public:
-	PdNode();
+	PdNode( const Format &format = Format() );
 	~PdNode();
 
 	void initialize() override;
