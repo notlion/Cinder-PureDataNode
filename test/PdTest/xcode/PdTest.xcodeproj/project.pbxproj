@@ -26,7 +26,9 @@
 		1104F51A17754FBB003EAA2B /* Plot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1104F50117754FBB003EAA2B /* Plot.cpp */; };
 		1104F51B17754FBB003EAA2B /* TapNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1104F50417754FBB003EAA2B /* TapNode.cpp */; };
 		1104F51E1777A581003EAA2B /* CinderCoreAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1104F51C1777A581003EAA2B /* CinderCoreAudio.cpp */; };
-		1104F5201777A978003EAA2B /* test.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F51F1777A978003EAA2B /* test.pd */; };
+		1104F5221777BD4D003EAA2B /* cash_satisfied_mind.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5211777BD4D003EAA2B /* cash_satisfied_mind.mp3 */; };
+		1104F5251777C193003EAA2B /* basic.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5231777C193003EAA2B /* basic.pd */; };
+		1104F5261777C193003EAA2B /* input.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5241777C193003EAA2B /* input.pd */; };
 		1114857D1773FE8F00B3578B /* PdNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1114857B1773FE8F00B3578B /* PdNode.cpp */; };
 		111486021773FEEB00B3578B /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 111485801773FEEB00B3578B /* LICENSE.txt */; };
 		111486031773FEEB00B3578B /* PdBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 111485811773FEEB00B3578B /* PdBase.cpp */; };
@@ -154,7 +156,9 @@
 		1104F50617754FBB003EAA2B /* Gui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gui.h; sourceTree = "<group>"; };
 		1104F51C1777A581003EAA2B /* CinderCoreAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CinderCoreAudio.cpp; sourceTree = "<group>"; };
 		1104F51D1777A581003EAA2B /* CinderCoreAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinderCoreAudio.h; sourceTree = "<group>"; };
-		1104F51F1777A978003EAA2B /* test.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test.pd; path = ../resources/test.pd; sourceTree = "<group>"; };
+		1104F5211777BD4D003EAA2B /* cash_satisfied_mind.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cash_satisfied_mind.mp3; path = ../../../audio2/assets/cash_satisfied_mind.mp3; sourceTree = "<group>"; };
+		1104F5231777C193003EAA2B /* basic.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic.pd; path = ../resources/basic.pd; sourceTree = "<group>"; };
+		1104F5241777C193003EAA2B /* input.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = input.pd; path = ../resources/input.pd; sourceTree = "<group>"; };
 		1114857B1773FE8F00B3578B /* PdNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdNode.cpp; path = ../src/PdNode.cpp; sourceTree = "<group>"; };
 		1114857C1773FE8F00B3578B /* PdNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdNode.h; path = ../src/PdNode.h; sourceTree = "<group>"; };
 		111485801773FEEB00B3578B /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -559,7 +563,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1104F51F1777A978003EAA2B /* test.pd */,
+				1104F5211777BD4D003EAA2B /* cash_satisfied_mind.mp3 */,
+				1104F5231777C193003EAA2B /* basic.pd */,
+				1104F5241777C193003EAA2B /* input.pd */,
 				82184AF89D334B619560B67D /* CinderApp.icns */,
 				A7C8A59CD38C412080CF3F5C /* Info.plist */,
 			);
@@ -635,8 +641,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1104F5201777A978003EAA2B /* test.pd in Resources */,
 				111486021773FEEB00B3578B /* LICENSE.txt in Resources */,
+				1104F5261777C193003EAA2B /* input.pd in Resources */,
+				1104F5221777BD4D003EAA2B /* cash_satisfied_mind.mp3 in Resources */,
+				1104F5251777C193003EAA2B /* basic.pd in Resources */,
 				C6A954169D8142D08E0D6A08 /* CinderApp.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
