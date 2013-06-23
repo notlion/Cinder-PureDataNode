@@ -24,6 +24,8 @@ void PdNode::initialize()
 	if( ! mSources[0] )
 		mSources.clear();
 
+	mNumTicksPerBlock = getContext()->getNumFramesPerBlock() / pd::PdBase::blockSize();
+
 	lock_guard<mutex> lock( mMutex );
 
 	bool success = mPdBase.init( getNumChannels(), getNumChannels(), getContext()->getSampleRate() );
@@ -59,10 +61,7 @@ void PdNode::process( audio2::Buffer *buffer )
 	CI_ASSERT( buffer->getLayout() == audio2::Buffer::Layout::Interleaved );
 
 	mMutex.lock();
-
-	int ticks = buffer->getNumFrames() / pd::PdBase::blockSize();
-	mPdBase.processFloat( ticks, buffer->getData(), buffer->getData() );
-
+	mPdBase.processFloat( mNumTicksPerBlock, buffer->getData(), buffer->getData() );
 	mMutex.unlock();
 }
 

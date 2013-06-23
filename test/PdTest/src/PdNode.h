@@ -31,6 +31,7 @@ public:
 	void sendMessage(const std::string& dest, const std::string& msg, const pd::List& list = pd::List());
 
 private:
-	pd::PdBase mPdBase;
-	std::mutex mMutex;
+	pd::PdBase	mPdBase;
+	std::mutex	mMutex;
+	size_t		mNumTicksPerBlock;
 };
