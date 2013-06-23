@@ -8,6 +8,7 @@
 #include "cinder/Thread.h"
 
 typedef std::shared_ptr<pd::Patch> PatchRef;
+typedef std::shared_ptr<class PdNode> PdNodeRef;
 
 class PdNode : public audio2::Node {
 public:
@@ -20,7 +21,7 @@ public:
 	void stop() override;
 	void process( audio2::Buffer *buffer );
 
-	PatchRef loadPatch(const std::string& name);
+	PatchRef loadPatch( ci::DataSourceRef dataSource );
 
 	// thread-safe senders
 	void sendBang(const std::string& dest);

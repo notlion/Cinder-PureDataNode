@@ -8,6 +8,10 @@ using namespace ci;
 PdNode::PdNode( const Format &format )
 : Node( format )
 {
+	mTag = "PdNode";
+	mBufferLayout = audio2::Buffer::Layout::Interleaved;
+	if( mNumChannelsUnspecified )
+		setNumChannels( 2 );
 }
 
 PdNode::~PdNode()
@@ -16,6 +20,10 @@ PdNode::~PdNode()
 
 void PdNode::initialize()
 {
+	// if PdNode is generating samples, it has an empty NodeRef in mSources, so remove it.
+	if( ! mSources[0] )
+		mSources.clear();
+
 	lock_guard<mutex> lock( mMutex );
 
 	bool success = mPdBase.init( getNumChannels(), getNumChannels(), getContext()->getSampleRate() );
@@ -48,27 +56,30 @@ void PdNode::stop()
 
 void PdNode::process( audio2::Buffer *buffer )
 {
+	CI_ASSERT( buffer->getLayout() == audio2::Buffer::Layout::Interleaved );
+
 	mMutex.lock();
 
-	int ticks = ioSampleCount / pd::PdBase::blockSize();
+	int ticks = buffer->getNumFrames() / pd::PdBase::blockSize();
 	mPdBase.processFloat( ticks, buffer->getData(), buffer->getData() );
 
 	mMutex.unlock();
 }
 
-PatchRef PdNode::loadPatch( const std::string& patchName )
+PatchRef PdNode::loadPatch( ci::DataSourceRef dataSource )
 {
-	lock_guard<mutex> lock(mMutex);
-	return PatchRef( new pd::Patch( mPdBase.openPatch( patchName, app::App::getResourcePath().string() ) ) );
-}
+	CI_ASSERT_MSG( mInitialized, "PdNode must be initialized before opening a patch" );
 
-//void PdNode::audioCallback(uint64_t inSampleOffset, uint32_t ioSampleCount, audio::Buffer32f *ioBuffer)
-//{
-//	mMutex.lock();
-//	int ticks = ioSampleCount / PdBase::blockSize();
-//	processFloat(ticks, ioBuffer->mData, ioBuffer->mData);
-//	mMutex.unlock();
-//}
+	lock_guard<mutex> lock(mMutex);
+
+	const fs::path& path = dataSource->getFilePath();
+	pd::Patch patch = mPdBase.openPatch( path.filename().string(), path.parent_path().string() );
+	if( ! patch.isValid() ) {
+		LOG_V << "could not open patch from dataSource: " << path << endl;
+		return PatchRef();
+	}
+	return PatchRef( new pd::Patch( patch ) );
+}
 
 void PdNode::sendBang( const std::string& dest )
 {
