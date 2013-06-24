@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+	name="Cinder-Pd2"
+	id="org.libcinder.dart"
+	author="Richard Eakin"
+	license="BSD"
+	summary="Testing block that provdes a 'PdNode' for ci::audio2"
+	git="git://github.com/reakinator/Cinder-Pd2.git"
+	version="testing only"
+	>
+
+	<!-- this places audio2 inside Cinder-Pd2 - why? -->
+	<!-- <requires>org.libcinder.audio2</requires> -->
+
+	<includePath>libpd/</includePath>
+	<includePath>src</includePath>
+
+	<headerPattern>src/*.h</headerPattern>
+	<sourcePattern>src/*.cpp</sourcePattern>
+	<headerPattern>libpd/cpp/*.hpp</headerPattern>
+	<sourcePattern>libpd/cpp/*.cpp</sourcePattern>
+	<headerPattern>libpd/pure-data/src/*.h</headerPattern>
+	<sourcePattern>libpd/pure-data/src/*.c</sourcePattern>
+	<headerPattern>libpd/libpd_wrapper/*.h</headerPattern>
+	<sourcePattern>libpd/libpd_wrapper/*.c</sourcePattern>
+	<headerPattern>libpd/libpd_wrapper/util/*.h</headerPattern>
+	<sourcePattern>libpd/libpd_wrapper/util/*.c</sourcePattern>
+
+	<!-- FIXME: preprocessorDefine not working? -->
+	<preprocessorDefine>PD</preprocessorDefine>
+	<preprocessorDefine>USE_API_DUMMY</preprocessorDefine>
+	<preprocessorDefine>HAVE_API_DUMMY</preprocessorDefine>
+	<preprocessorDefine>HAVE_UNISTD_H</preprocessorDefine>
+
+</block>
+</cinder>
