@@ -44,11 +44,9 @@ class PdTestApp : public AppNative {
 void PdTestApp::setup()
 {
 	mContext = Context::instance()->createContext();
-
 	mPdNode = make_shared<PdNode>();
 
-//	setupBasic();
-	setupFileInput();
+	setupBasic();
 	setupUI();
 
 	mContext->start();
@@ -139,10 +137,18 @@ void PdTestApp::processTap( Vec2i pos )
 		bool running = mContext->isEnabled();
 		mContext->uninitialize();
 
+		if( mPatch ) {
+			mPdNode->getPd().closePatch( *mPatch );
+			mPatch.reset();
+		}
+
 		if( currentTest == "basic" )
 			setupBasic();
-		if( currentTest == "input" )
+		if( currentTest == "input" ) {
 			setupFileInput();
+			mPlayerNode->setEnabled( mPlayButton.enabled );
+			mPdNode->setEnabled( mPlayButton.enabled );
+		}
 
 		if( running )
 			mContext->start();

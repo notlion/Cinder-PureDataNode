@@ -21,6 +21,8 @@ public:
 	void stop() override;
 	void process( audio2::Buffer *buffer );
 
+	pd::PdBase& getPd()	{ return mPdBase; }
+
 	PatchRef loadPatch( ci::DataSourceRef dataSource );
 
 	// thread-safe senders
