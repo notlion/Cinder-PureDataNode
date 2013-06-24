@@ -20,11 +20,6 @@ PdNode::~PdNode()
 
 void PdNode::initialize()
 {
-	// if PdNode is generating samples, it has an empty NodeRef in mSources, so remove it.
-	// FIXME: this breaks with runtime reconfiguration
-	if( ! mSources[0] )
-		mSources.clear();
-
 	mNumTicksPerBlock = getContext()->getNumFramesPerBlock() / pd::PdBase::blockSize();
 
 	lock_guard<mutex> lock( mMutex );
