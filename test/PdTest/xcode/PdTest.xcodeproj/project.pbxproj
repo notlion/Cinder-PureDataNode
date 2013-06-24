@@ -29,7 +29,6 @@
 		1104F5221777BD4D003EAA2B /* cash_satisfied_mind.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5211777BD4D003EAA2B /* cash_satisfied_mind.mp3 */; };
 		1104F5251777C193003EAA2B /* basic.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5231777C193003EAA2B /* basic.pd */; };
 		1104F5261777C193003EAA2B /* input.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5241777C193003EAA2B /* input.pd */; };
-		1114857D1773FE8F00B3578B /* PdNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1114857B1773FE8F00B3578B /* PdNode.cpp */; };
 		111486021773FEEB00B3578B /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 111485801773FEEB00B3578B /* LICENSE.txt */; };
 		111486031773FEEB00B3578B /* PdBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 111485811773FEEB00B3578B /* PdBase.cpp */; };
 		111486041773FEEB00B3578B /* PdTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 111485851773FEEB00B3578B /* PdTypes.cpp */; };
@@ -107,6 +106,7 @@
 		111486691773FEEB00B3578B /* x_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 111485FF1773FEEB00B3578B /* x_net.c */; };
 		1114866A1773FEEB00B3578B /* x_qlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 111486001773FEEB00B3578B /* x_qlist.c */; };
 		1114866B1773FEEB00B3578B /* x_time.c in Sources */ = {isa = PBXBuildFile; fileRef = 111486011773FEEB00B3578B /* x_time.c */; };
+		14795AE21778C96F002C1218 /* PdNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14795AE01778C96F002C1218 /* PdNode.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		88F896DEA5DE4B86B94B234A /* PdTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DFE2D7AB5C84D6AB3C146C5 /* PdTestApp.cpp */; };
@@ -159,8 +159,6 @@
 		1104F5211777BD4D003EAA2B /* cash_satisfied_mind.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cash_satisfied_mind.mp3; path = ../../../audio2/assets/cash_satisfied_mind.mp3; sourceTree = "<group>"; };
 		1104F5231777C193003EAA2B /* basic.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic.pd; path = ../resources/basic.pd; sourceTree = "<group>"; };
 		1104F5241777C193003EAA2B /* input.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = input.pd; path = ../resources/input.pd; sourceTree = "<group>"; };
-		1114857B1773FE8F00B3578B /* PdNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdNode.cpp; path = ../src/PdNode.cpp; sourceTree = "<group>"; };
-		1114857C1773FE8F00B3578B /* PdNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdNode.h; path = ../src/PdNode.h; sourceTree = "<group>"; };
 		111485801773FEEB00B3578B /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		111485811773FEEB00B3578B /* PdBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PdBase.cpp; sourceTree = "<group>"; };
 		111485821773FEEB00B3578B /* PdBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PdBase.hpp; sourceTree = "<group>"; };
@@ -254,6 +252,8 @@
 		111485FF1773FEEB00B3578B /* x_net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = x_net.c; sourceTree = "<group>"; };
 		111486001773FEEB00B3578B /* x_qlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = x_qlist.c; sourceTree = "<group>"; };
 		111486011773FEEB00B3578B /* x_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = x_time.c; sourceTree = "<group>"; };
+		14795AE01778C96F002C1218 /* PdNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdNode.cpp; path = ../../../src/PdNode.cpp; sourceTree = "<group>"; };
+		14795AE11778C96F002C1218 /* PdNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdNode.h; path = ../../../src/PdNode.h; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
@@ -297,8 +297,8 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				1114857C1773FE8F00B3578B /* PdNode.h */,
-				1114857B1773FE8F00B3578B /* PdNode.cpp */,
+				14795AE11778C96F002C1218 /* PdNode.h */,
+				14795AE01778C96F002C1218 /* PdNode.cpp */,
 				8DFE2D7AB5C84D6AB3C146C5 /* PdTestApp.cpp */,
 			);
 			name = Source;
@@ -705,7 +705,6 @@
 				111486641773FEEB00B3578B /* x_gui.c in Sources */,
 				111486031773FEEB00B3578B /* PdBase.cpp in Sources */,
 				111486521773FEEB00B3578B /* m_conf.c in Sources */,
-				1114857D1773FE8F00B3578B /* PdNode.cpp in Sources */,
 				1104F50817754FBB003EAA2B /* ContextAudioUnit.cpp in Sources */,
 				111486431773FEEB00B3578B /* g_mycanvas.c in Sources */,
 				1104F51E1777A581003EAA2B /* CinderCoreAudio.cpp in Sources */,
@@ -718,6 +717,7 @@
 				1104F50B17754FBB003EAA2B /* DeviceManagerCoreAudio.cpp in Sources */,
 				111486311773FEEB00B3578B /* d_filter.c in Sources */,
 				111486541773FEEB00B3578B /* m_memory.c in Sources */,
+				14795AE21778C96F002C1218 /* PdNode.cpp in Sources */,
 				1114864D1773FEEB00B3578B /* g_vslider.c in Sources */,
 				111486461773FEEB00B3578B /* g_rtext.c in Sources */,
 				111486571773FEEB00B3578B /* m_sched.c in Sources */,
