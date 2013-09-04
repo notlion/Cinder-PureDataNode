@@ -77,7 +77,7 @@ PatchRef PdNode::loadPatch( ci::DataSourceRef dataSource )
 {
 	CI_ASSERT_MSG( mInitialized, "PdNode must be initialized before opening a patch" );
 
-	lock_guard<mutex> lock(mMutex);
+	lock_guard<mutex> lock( mMutex );
 
 	const fs::path& path = dataSource->getFilePath();
 	pd::Patch patch = mPdBase.openPatch( path.filename().string(), path.parent_path().string() );
