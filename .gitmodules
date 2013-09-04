@@ -3,4 +3,4 @@
 	url = git@github.com:libpd/libpd.git
 [submodule "audio2"]
 	path = audio2
-	url = git@github.com:reakinator/Cinder-Audio2.git
+	url = git@github.com:richardeakin/Cinder-Audio2.git

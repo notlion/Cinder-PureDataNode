@@ -8,10 +8,10 @@ using namespace ci;
 PdNode::PdNode( const Format &format )
 : Node( format )
 {
-	mTag = "PdNode";
-	mBufferLayout = audio2::Buffer::Layout::Interleaved;
-	if( mNumChannelsUnspecified )
+	if( mChannelMode != ChannelMode::SPECIFIED ) {
+		mChannelMode = ChannelMode::SPECIFIED;
 		setNumChannels( 2 );
+	}
 }
 
 PdNode::~PdNode()
@@ -21,6 +21,9 @@ PdNode::~PdNode()
 void PdNode::initialize()
 {
 	mNumTicksPerBlock = getContext()->getNumFramesPerBlock() / pd::PdBase::blockSize();
+
+	if( getNumChannels() > 1 )
+		mBufferInterleaved = audio2::BufferInterleaved( getContext()->getNumFramesPerBlock(), getNumChannels() );
 
 	lock_guard<mutex> lock( mMutex );
 
@@ -54,11 +57,20 @@ void PdNode::stop()
 
 void PdNode::process( audio2::Buffer *buffer )
 {
-	CI_ASSERT( buffer->getLayout() == audio2::Buffer::Layout::Interleaved );
+	if( getNumChannels() > 1 ) {
+		audio2::interleaveStereoBuffer( buffer, &mBufferInterleaved );
 
-	mMutex.lock();
-	mPdBase.processFloat( mNumTicksPerBlock, buffer->getData(), buffer->getData() );
-	mMutex.unlock();
+		mMutex.lock();
+		mPdBase.processFloat( mNumTicksPerBlock, mBufferInterleaved.getData(), mBufferInterleaved.getData() );
+		mMutex.unlock();
+
+		audio2::deinterleaveStereoBuffer( &mBufferInterleaved, buffer );
+	}
+	else {
+		mMutex.lock();
+		mPdBase.processFloat( mNumTicksPerBlock, buffer->getData(), buffer->getData() );
+		mMutex.unlock();
+	}
 }
 
 PatchRef PdNode::loadPatch( ci::DataSourceRef dataSource )

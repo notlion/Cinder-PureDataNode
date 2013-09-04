@@ -10,16 +10,18 @@
 typedef std::shared_ptr<pd::Patch> PatchRef;
 typedef std::shared_ptr<class PdNode> PdNodeRef;
 
-class PdNode : public audio2::Node {
+class PdNode : public ci::audio2::Node {
 public:
 	PdNode( const Format &format = Format() );
 	~PdNode();
+
+	std::string getTag() override	{ return "PdNode"; }
 
 	void initialize() override;
 	void uninitialize() override;
 	void start() override;
 	void stop() override;
-	void process( audio2::Buffer *buffer );
+	void process( ci::audio2::Buffer *buffer );
 
 	pd::PdBase& getPd()	{ return mPdBase; }
 
@@ -36,4 +38,5 @@ private:
 	pd::PdBase	mPdBase;
 	std::mutex	mMutex;
 	size_t		mNumTicksPerBlock;
+	ci::audio2::BufferInterleaved mBufferInterleaved;
 };

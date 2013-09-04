@@ -44,7 +44,7 @@ class PdTestApp : public AppNative {
 void PdTestApp::setup()
 {
 	mContext = Context::instance()->createContext();
-	mPdNode = make_shared<PdNode>();
+	mPdNode = mContext->makeNode( new PdNode() );
 
 	setupBasic();
 	setupUI();
@@ -77,7 +77,7 @@ void PdTestApp::setupFileInput()
 {
 	mSourceFile = SourceFile::create( loadResource( "cash_satisfied_mind.mp3" ), 0, 44100 );
 
-	mPlayerNode = make_shared<BufferPlayerNode>( mSourceFile->loadBuffer() );
+	mPlayerNode = mContext->makeNode( new BufferPlayerNode( mSourceFile->loadBuffer() ) );
 	mPlayerNode->setLoop();
 	LOG_V << "BufferPlayerNode frames: " << mPlayerNode->getNumFrames() << endl;
 
@@ -93,7 +93,7 @@ void PdTestApp::setupUI()
 	mPlayButton = Button( true, "stopped", "playing" );
 	mWidgets.push_back( &mPlayButton );
 
-	mTestSelector.segments = { "basic", "input" };
+	mTestSelector.mSegments = { "basic", "input" };
 	mWidgets.push_back( &mTestSelector );
 
 #if defined( CINDER_COCOA_TOUCH )
@@ -102,8 +102,8 @@ void PdTestApp::setupUI()
 	mTestSelector.bounds = Rectf( getWindowWidth() - 190, 0.0f, getWindowWidth(), 160.0f );
 	mTestSelector.textIsCentered = false;
 #else
-	mPlayButton.bounds = Rectf( 0, 0, 200, 60 );
-	mTestSelector.bounds = Rectf( getWindowCenter().x + 100, 0.0f, getWindowWidth(), 160.0f );
+	mPlayButton.mBounds = Rectf( 0, 0, 200, 60 );
+	mTestSelector.mBounds = Rectf( getWindowCenter().x + 100, 0.0f, getWindowWidth(), 160.0f );
 #endif
 
 	getWindow()->getSignalMouseDown().connect( [this] ( MouseEvent &event ) { processTap( event.getPos() ); } );
@@ -125,12 +125,12 @@ void PdTestApp::processTap( Vec2i pos )
 {
 	if( mPlayButton.hitTest( pos ) ) {
 		if( mPlayerNode )
-			mPlayerNode->setEnabled( mPlayButton.enabled );
-		mPdNode->setEnabled( mPlayButton.enabled );
+			mPlayerNode->setEnabled( mPlayButton.mEnabled );
+		mPdNode->setEnabled( mPlayButton.mEnabled );
 	}
 
-	size_t currentIndex = mTestSelector.currentSectionIndex;
-	if( mTestSelector.hitTest( pos ) && currentIndex != mTestSelector.currentSectionIndex ) {
+	size_t currentIndex = mTestSelector.mCurrentSectionIndex;
+	if( mTestSelector.hitTest( pos ) && currentIndex != mTestSelector.mCurrentSectionIndex ) {
 		string currentTest = mTestSelector.currentSection();
 		LOG_V << "selected: " << currentTest << endl;
 
@@ -146,8 +146,8 @@ void PdTestApp::processTap( Vec2i pos )
 			setupBasic();
 		if( currentTest == "input" ) {
 			setupFileInput();
-			mPlayerNode->setEnabled( mPlayButton.enabled );
-			mPdNode->setEnabled( mPlayButton.enabled );
+			mPlayerNode->setEnabled( mPlayButton.mEnabled );
+			mPdNode->setEnabled( mPlayButton.mEnabled );
 		}
 
 		if( running )
