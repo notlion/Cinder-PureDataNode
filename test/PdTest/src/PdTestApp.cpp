@@ -25,7 +25,6 @@ class PdTestApp : public AppNative {
 	void processDrag( Vec2i pos );
 	void processTap( Vec2i pos );
 
-	void initContext();
 	void setupBasic();
 	void setupFileInput();
 
@@ -50,24 +49,14 @@ void PdTestApp::setup()
 	setupUI();
 
 	mContext->start();
-}
 
-void PdTestApp::initContext()
-{
-	LOG_V << "----------- Graph configuration: (before) --------------" << endl;
-	printGraph( mContext );
-
-	mContext->initialize();
-
-	LOG_V << "----------- Graph configuration: (after) --------------" << endl;
-	console() << "Graph configuration: (after)" << endl;
+	LOG_V << "------------------------- Graph configuration: -------------------------" << endl;
 	printGraph( mContext );
 }
 
 void PdTestApp::setupBasic()
 {
 	mPdNode->connect( mContext->getRoot() );
-	initContext();
 
 	mPatch = mPdNode->loadPatch( loadResource( RES_BASIC_PD_PATCH ) );
 	LOG_V << "loaded patch: " << mPatch->filename() << endl;
@@ -82,7 +71,6 @@ void PdTestApp::setupFileInput()
 	LOG_V << "BufferPlayerNode frames: " << mPlayerNode->getNumFrames() << endl;
 
 	mPlayerNode->connect( mPdNode )->connect( mContext->getRoot() );
-	initContext();
 
 	mPatch = mPdNode->loadPatch( loadResource( RES_INPUT_PD_PATCH ) );
 	LOG_V << "loaded patch: " << mPatch->filename() << endl;
@@ -134,8 +122,8 @@ void PdTestApp::processTap( Vec2i pos )
 		string currentTest = mTestSelector.currentSection();
 		LOG_V << "selected: " << currentTest << endl;
 
-		bool running = mContext->isEnabled();
-		mContext->uninitialize();
+		bool enabled = mContext->isEnabled();
+		mContext->disconnectAllNodes();
 
 		if( mPatch ) {
 			mPdNode->getPd().closePatch( *mPatch );
@@ -150,8 +138,7 @@ void PdTestApp::processTap( Vec2i pos )
 			mPdNode->setEnabled( mPlayButton.mEnabled );
 		}
 
-		if( running )
-			mContext->start();
+		mContext->setEnabled( enabled );
 	}
 }
 
