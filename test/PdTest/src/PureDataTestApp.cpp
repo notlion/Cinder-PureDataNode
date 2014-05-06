@@ -30,8 +30,8 @@ class PureDataTestApp : public AppNative {
 	void setupBasic();
 	void setupFileInput();
 
-	PureDataNodeRef mPureDataNode;
-	PatchRef mPatch;
+	cipd::PureDataNodeRef	mPureDataNode;
+	cipd::PatchRef			mPatch;
 
 	audio2::SourceFileRef	mSourceFile;
 	audio2::BufferPlayerRef	mPlayerNode;
@@ -44,7 +44,7 @@ class PureDataTestApp : public AppNative {
 void PureDataTestApp::setup()
 {
 	auto ctx = audio2::master();
-	mPureDataNode = ctx->makeNode( new PureDataNode( audio2::Node::Format().autoEnable() ) );
+	mPureDataNode = ctx->makeNode( new cipd::PureDataNode( audio2::Node::Format().autoEnable() ) );
 
 	setupBasic();
 

@@ -7,6 +7,8 @@
 #include "cinder/audio2/Node.h"
 #include "cinder/Thread.h"
 
+namespace cipd {
+
 typedef std::shared_ptr<pd::Patch> PatchRef;
 typedef std::shared_ptr<class PureDataNode> PureDataNodeRef;
 
@@ -37,3 +39,5 @@ private:
 
 	ci::audio2::BufferInterleaved mBufferInterleaved;
 };
+
+} // namespace cipd

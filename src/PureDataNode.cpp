@@ -7,6 +7,8 @@
 using namespace std;
 using namespace ci;
 
+namespace cipd {
+
 PureDataNode::PureDataNode( const Format &format )
 	: Node( format )
 {
@@ -106,3 +108,5 @@ void PureDataNode::sendMessage( const std::string& dest, const std::string& msg,
 	lock_guard<mutex> lock( mMutex );
 	mPdBase.sendMessage( dest, msg, list );
 }
+
+} // namespace cipd
