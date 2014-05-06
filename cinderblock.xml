@@ -7,7 +7,7 @@
 	license="BSD"
 	summary="Testing block that provdes a 'PdNode' for ci::audio2"
 	git="git://github.com/reakinator/Cinder-Pd2.git"
-	version="testing only"
+	version="testing"
 	>
 
 	<!-- this places audio2 inside Cinder-Pd2 - why? -->
@@ -27,11 +27,9 @@
 	<headerPattern>libpd/libpd_wrapper/util/*.h</headerPattern>
 	<sourcePattern>libpd/libpd_wrapper/util/*.c</sourcePattern>
 
-	<!-- FIXME: preprocessorDefine not working? -->
 	<preprocessorDefine>PD</preprocessorDefine>
-	<preprocessorDefine>USE_API_DUMMY</preprocessorDefine>
-	<preprocessorDefine>HAVE_API_DUMMY</preprocessorDefine>
+	<preprocessorDefine>USEAPI_DUMMY</preprocessorDefine>
+	<preprocessorDefine>HAVEAPI_DUMMY</preprocessorDefine>
 	<preprocessorDefine>HAVE_UNISTD_H</preprocessorDefine>
-
 </block>
 </cinder>
