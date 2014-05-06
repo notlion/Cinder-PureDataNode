@@ -1,5 +1,6 @@
 #include "PureDataNode.h"
 
+#include "cinder/audio2/Context.h"
 #include "cinder/audio2/dsp/Converter.h"
 #include "cinder/audio2/Debug.h"
 
@@ -62,7 +63,8 @@ void PureDataNode::process( audio2::Buffer *buffer )
 
 PatchRef PureDataNode::loadPatch( ci::DataSourceRef dataSource )
 {
-	CI_ASSERT_MSG( isInitialized(), "PureDataNode must be initialized before opening a patch" );
+	if( ! isInitialized() )
+		getContext()->initializeNode( shared_from_this() );
 
 	lock_guard<mutex> lock( mMutex );
 
