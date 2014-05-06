@@ -2,10 +2,13 @@
 #include "cinder/gl/gl.h"
 #include "Resources.h"
 
-#include "audio2/audio.h"
-#include "audio2/GeneratorNode.h"
-#include "audio2/Debug.h"
-#include "Gui.h"
+#include "cinder/audio2/Context.h"
+#include "cinder/audio2/Source.h"
+#include "cinder/audio2/SamplePlayer.h"
+#include "cinder/audio2/Debug.h"
+
+#include "../test/common/AudioTestGui.h"
+
 
 #include "PdNode.h"
 
@@ -28,12 +31,11 @@ class PdTestApp : public AppNative {
 	void setupBasic();
 	void setupFileInput();
 
-	ContextRef mContext;
 	PdNodeRef mPdNode;
 	PatchRef mPatch;
 
-	SourceFileRef mSourceFile;
-	BufferPlayerNodeRef mPlayerNode;
+	audio2::SourceFileRef	mSourceFile;
+	audio2::BufferPlayerRef	mPlayerNode;
 
 	VSelector mTestSelector;
 	Button mPlayButton;
@@ -42,38 +44,38 @@ class PdTestApp : public AppNative {
 
 void PdTestApp::setup()
 {
-	mContext = Context::instance()->createContext();
-	mPdNode = mContext->makeNode( new PdNode() );
+	auto ctx = audio2::master();
+	mPdNode = ctx->makeNode( new PdNode() );
 
 	setupBasic();
 	setupUI();
 
-	mContext->start();
+	ctx->enable();
 
-	LOG_V << "------------------------- Graph configuration: -------------------------" << endl;
-	printGraph( mContext );
+	ctx->printGraph();
 }
 
 void PdTestApp::setupBasic()
 {
-	mPdNode->connect( mContext->getRoot() );
+	mPdNode >> audio2::master()->getOutput();
 
 	mPatch = mPdNode->loadPatch( loadResource( RES_BASIC_PD_PATCH ) );
-	LOG_V << "loaded patch: " << mPatch->filename() << endl;
+	CI_LOG_V( "loaded patch: " << mPatch->filename() );
 }
 
 void PdTestApp::setupFileInput()
 {
-	mSourceFile = SourceFile::create( loadResource( "cash_satisfied_mind.mp3" ), 0, 44100 );
+	auto ctx = audio2::master();
+	mSourceFile = audio2::load( loadResource( "cash_satisfied_mind.mp3" ), ctx->getSampleRate() );
 
-	mPlayerNode = mContext->makeNode( new BufferPlayerNode( mSourceFile->loadBuffer() ) );
-	mPlayerNode->setLoop();
-	LOG_V << "BufferPlayerNode frames: " << mPlayerNode->getNumFrames() << endl;
+	mPlayerNode = ctx->makeNode( new audio2::BufferPlayer( mSourceFile->loadBuffer() ) );
+	mPlayerNode->setLoopEnabled();
+	CI_LOG_V( "BufferPlayerNode frames: " << mPlayerNode->getNumFrames() );
 
-	mPlayerNode->connect( mPdNode )->connect( mContext->getRoot() );
+	mPlayerNode >> mPdNode >> ctx->getOutput();
 
 	mPatch = mPdNode->loadPatch( loadResource( RES_INPUT_PD_PATCH ) );
-	LOG_V << "loaded patch: " << mPatch->filename() << endl;
+	CI_LOG_V( "loaded patch: " << mPatch->filename() );
 }
 
 void PdTestApp::setupUI()
@@ -81,7 +83,7 @@ void PdTestApp::setupUI()
 	mPlayButton = Button( true, "stopped", "playing" );
 	mWidgets.push_back( &mPlayButton );
 
-	mTestSelector.mSegments = { "basic", "input" };
+	mTestSelector.mSegments = { "sinetone", "file input" };
 	mWidgets.push_back( &mTestSelector );
 
 #if defined( CINDER_COCOA_TOUCH )
@@ -120,10 +122,13 @@ void PdTestApp::processTap( Vec2i pos )
 	size_t currentIndex = mTestSelector.mCurrentSectionIndex;
 	if( mTestSelector.hitTest( pos ) && currentIndex != mTestSelector.mCurrentSectionIndex ) {
 		string currentTest = mTestSelector.currentSection();
-		LOG_V << "selected: " << currentTest << endl;
+		CI_LOG_V( "selected: " << currentTest );
 
-		bool enabled = mContext->isEnabled();
-		mContext->disconnectAllNodes();
+		auto ctx = audio2::master();
+
+		audio2::ScopedEnableContext scopedEnable( ctx, false ); // TODO: make work without this
+
+		ctx->disconnectAllNodes();
 
 		if( mPatch ) {
 			mPdNode->getPd().closePatch( *mPatch );
@@ -137,8 +142,6 @@ void PdTestApp::processTap( Vec2i pos )
 			mPlayerNode->setEnabled( mPlayButton.mEnabled );
 			mPdNode->setEnabled( mPlayButton.mEnabled );
 		}
-
-		mContext->setEnabled( enabled );
 	}
 }
 

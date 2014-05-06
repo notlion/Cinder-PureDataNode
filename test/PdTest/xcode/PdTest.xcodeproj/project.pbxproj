@@ -12,7 +12,7 @@
 		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
-		1104F5221777BD4D003EAA2B /* cash_satisfied_mind.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5211777BD4D003EAA2B /* cash_satisfied_mind.mp3 */; };
+		1101F99619188CF900002281 /* cash_satisfied_mind.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1101F99519188CF900002281 /* cash_satisfied_mind.mp3 */; };
 		1104F5251777C193003EAA2B /* basic.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5231777C193003EAA2B /* basic.pd */; };
 		1104F5261777C193003EAA2B /* input.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5241777C193003EAA2B /* input.pd */; };
 		111486031773FEEB00B3578B /* PdBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 111485811773FEEB00B3578B /* PdBase.cpp */; };
@@ -92,37 +92,12 @@
 		1114866A1773FEEB00B3578B /* x_qlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 111486001773FEEB00B3578B /* x_qlist.c */; };
 		1114866B1773FEEB00B3578B /* x_time.c in Sources */ = {isa = PBXBuildFile; fileRef = 111486011773FEEB00B3578B /* x_time.c */; };
 		14795AE21778C96F002C1218 /* PdNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14795AE01778C96F002C1218 /* PdNode.cpp */; };
-		14B7593A17D6CEBD00224418 /* libAudio2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B7593517D6CE9B00224418 /* libAudio2.a */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		88F896DEA5DE4B86B94B234A /* PdTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DFE2D7AB5C84D6AB3C146C5 /* PdTestApp.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		C6A954169D8142D08E0D6A08 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 82184AF89D334B619560B67D /* CinderApp.icns */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		14B7593417D6CE9B00224418 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 14B7592F17D6CE9B00224418 /* Audio2.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1104F3C917753F10003EAA2B;
-			remoteInfo = "Audio2-mac";
-		};
-		14B7593617D6CE9B00224418 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 14B7592F17D6CE9B00224418 /* Audio2.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 11B0421C179B90450034BEE2;
-			remoteInfo = "Audio2-ios";
-		};
-		14B7593817D6CEB600224418 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 14B7592F17D6CE9B00224418 /* Audio2.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 1104F3C817753F10003EAA2B;
-			remoteInfo = "Audio2-mac";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0091D8F80E81B9330029341E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
@@ -131,7 +106,7 @@
 		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		1104F5211777BD4D003EAA2B /* cash_satisfied_mind.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cash_satisfied_mind.mp3; path = ../../../audio2/assets/cash_satisfied_mind.mp3; sourceTree = "<group>"; };
+		1101F99519188CF900002281 /* cash_satisfied_mind.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cash_satisfied_mind.mp3; path = "../../../../Cinder-Audio2/assets/cash_satisfied_mind.mp3"; sourceTree = "<group>"; };
 		1104F5231777C193003EAA2B /* basic.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic.pd; path = ../resources/basic.pd; sourceTree = "<group>"; };
 		1104F5241777C193003EAA2B /* input.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = input.pd; path = ../resources/input.pd; sourceTree = "<group>"; };
 		111485811773FEEB00B3578B /* PdBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PdBase.cpp; sourceTree = "<group>"; };
@@ -228,7 +203,6 @@
 		111486011773FEEB00B3578B /* x_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = x_time.c; sourceTree = "<group>"; };
 		14795AE01778C96F002C1218 /* PdNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdNode.cpp; path = ../../../src/PdNode.cpp; sourceTree = "<group>"; };
 		14795AE11778C96F002C1218 /* PdNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdNode.h; path = ../../../src/PdNode.h; sourceTree = "<group>"; };
-		14B7592F17D6CE9B00224418 /* Audio2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Audio2.xcodeproj; path = ../../../audio2/xcode/Audio2.xcodeproj; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
@@ -246,7 +220,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14B7593A17D6CEBD00224418 /* libAudio2.a in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */,
 				5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */,
@@ -264,7 +237,6 @@
 		01B97315FEAEA392516A2CEA /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				14B7592F17D6CE9B00224418 /* Audio2.xcodeproj */,
 				1114857E1773FEDD00B3578B /* libpd */,
 			);
 			name = Blocks;
@@ -446,15 +418,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		14B7593017D6CE9B00224418 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				14B7593517D6CE9B00224418 /* libAudio2.a */,
-				14B7593717D6CE9B00224418 /* libAudio2-ios.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,7 +451,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1104F5211777BD4D003EAA2B /* cash_satisfied_mind.mp3 */,
+				1101F99519188CF900002281 /* cash_satisfied_mind.mp3 */,
 				1104F5231777C193003EAA2B /* basic.pd */,
 				1104F5241777C193003EAA2B /* input.pd */,
 				82184AF89D334B619560B67D /* CinderApp.icns */,
@@ -520,7 +483,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				14B7593917D6CEB600224418 /* PBXTargetDependency */,
 			);
 			name = PdTest;
 			productInstallPath = "$(HOME)/Applications";
@@ -547,12 +509,6 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* PdTest */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 14B7593017D6CE9B00224418 /* Products */;
-					ProjectRef = 14B7592F17D6CE9B00224418 /* Audio2.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* PdTest */,
@@ -560,31 +516,14 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		14B7593517D6CE9B00224418 /* libAudio2.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAudio2.a;
-			remoteRef = 14B7593417D6CE9B00224418 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		14B7593717D6CE9B00224418 /* libAudio2-ios.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libAudio2-ios.a";
-			remoteRef = 14B7593617D6CE9B00224418 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1104F5261777C193003EAA2B /* input.pd in Resources */,
-				1104F5221777BD4D003EAA2B /* cash_satisfied_mind.mp3 in Resources */,
 				1104F5251777C193003EAA2B /* basic.pd in Resources */,
+				1101F99619188CF900002281 /* cash_satisfied_mind.mp3 in Resources */,
 				C6A954169D8142D08E0D6A08 /* CinderApp.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -679,14 +618,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		14B7593917D6CEB600224418 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Audio2-mac";
-			targetProxy = 14B7593817D6CEB600224418 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -703,7 +634,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
+				OTHER_LDFLAGS = (
+					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
+					"../../../../Cinder-Audio2/lib/macosx/libaudio2_d.a",
+				);
 				PRODUCT_NAME = PdTest;
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;
@@ -725,7 +659,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
+				OTHER_LDFLAGS = (
+					"\"$(CINDER_PATH)/lib/libcinder.a\"",
+					"../../../../Cinder-Audio2/lib/macosx/libaudio2.a",
+				);
 				PRODUCT_NAME = PdTest;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = ./build;
@@ -738,7 +675,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
-				CINDER_PATH = ../../../cinder;
+				CINDER_PATH = ../../../../..;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -754,7 +691,7 @@
 					"-Wno-parentheses",
 				);
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"../../../audio2/src\" ../../../libpd";
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../../Cinder-Audio2/src/ ../../../libpd";
 			};
 			name = Debug;
 		};
@@ -763,7 +700,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
-				CINDER_PATH = ../../../cinder;
+				CINDER_PATH = ../../../../..;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -779,7 +716,7 @@
 					"-Wno-parentheses",
 				);
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include \"../../../audio2/src\" ../../../libpd";
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../../Cinder-Audio2/src/ ../../../libpd";
 			};
 			name = Release;
 		};

@@ -4,7 +4,7 @@
 #include "PdReceiver.hpp"
 #include "PdTypes.hpp"
 
-#include "audio2/Context.h"
+#include "cinder/audio2/Node.h"
 #include "cinder/Thread.h"
 
 typedef std::shared_ptr<pd::Patch> PatchRef;
@@ -15,12 +15,8 @@ public:
 	PdNode( const Format &format = Format() );
 	~PdNode();
 
-	std::string getTag() override	{ return "PdNode"; }
-
 	void initialize() override;
 	void uninitialize() override;
-	void start() override;
-	void stop() override;
 	void process( ci::audio2::Buffer *buffer );
 
 	pd::PdBase& getPd()	{ return mPdBase; }

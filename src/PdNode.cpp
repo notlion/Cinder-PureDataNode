@@ -1,6 +1,7 @@
 #include "PdNode.h"
 
-#include "audio2/Debug.h"
+#include "cinder/audio2/dsp/Converter.h"
+#include "cinder/audio2/Debug.h"
 
 using namespace std;
 using namespace ci;
@@ -8,8 +9,8 @@ using namespace ci;
 PdNode::PdNode( const Format &format )
 : Node( format )
 {
-	if( mChannelMode != ChannelMode::SPECIFIED ) {
-		mChannelMode = ChannelMode::SPECIFIED;
+	if( getChannelMode() != ChannelMode::SPECIFIED ) {
+		setChannelMode( ChannelMode::SPECIFIED );
 		setNumChannels( 2 );
 	}
 }
@@ -20,19 +21,18 @@ PdNode::~PdNode()
 
 void PdNode::initialize()
 {
-	mNumTicksPerBlock = getContext()->getNumFramesPerBlock() / pd::PdBase::blockSize();
+	mNumTicksPerBlock = getFramesPerBlock() / pd::PdBase::blockSize();
 
 	if( getNumChannels() > 1 )
-		mBufferInterleaved = audio2::BufferInterleaved( getContext()->getNumFramesPerBlock(), getNumChannels() );
+		mBufferInterleaved = audio2::BufferInterleaved( getFramesPerBlock(), getNumChannels() );
 
 	lock_guard<mutex> lock( mMutex );
 
-	bool success = mPdBase.init( getNumChannels(), getNumChannels(), getContext()->getSampleRate() );
+	bool success = mPdBase.init( getNumChannels(), getNumChannels(), getSampleRate() );
 	CI_ASSERT( success );
 
 	// in libpd world, dsp computation is controlled through the process methods, so computeAudio is enabled until uninitialize
 	mPdBase.computeAudio( true );
-	mInitialized = true;
 }
 
 void PdNode::uninitialize()
@@ -40,31 +40,18 @@ void PdNode::uninitialize()
 	lock_guard<mutex> lock( mMutex );
 
 	mPdBase.computeAudio( false );
-	mInitialized = false;
-}
-
-void PdNode::start()
-{
-
-	mEnabled = true;
-}
-
-void PdNode::stop()
-{
-
-	mEnabled = false;
 }
 
 void PdNode::process( audio2::Buffer *buffer )
 {
 	if( getNumChannels() > 1 ) {
-		audio2::interleaveStereoBuffer( buffer, &mBufferInterleaved );
+		audio2::dsp::interleaveBuffer( buffer, &mBufferInterleaved );
 
 		mMutex.lock();
 		mPdBase.processFloat( mNumTicksPerBlock, mBufferInterleaved.getData(), mBufferInterleaved.getData() );
 		mMutex.unlock();
 
-		audio2::deinterleaveStereoBuffer( &mBufferInterleaved, buffer );
+		audio2::dsp::deinterleaveBuffer( &mBufferInterleaved, buffer );
 	}
 	else {
 		mMutex.lock();
@@ -75,14 +62,14 @@ void PdNode::process( audio2::Buffer *buffer )
 
 PatchRef PdNode::loadPatch( ci::DataSourceRef dataSource )
 {
-	CI_ASSERT_MSG( mInitialized, "PdNode must be initialized before opening a patch" );
+	CI_ASSERT_MSG( isInitialized(), "PdNode must be initialized before opening a patch" );
 
 	lock_guard<mutex> lock( mMutex );
 
 	const fs::path& path = dataSource->getFilePath();
 	pd::Patch patch = mPdBase.openPatch( path.filename().string(), path.parent_path().string() );
 	if( ! patch.isValid() ) {
-		LOG_V << "could not open patch from dataSource: " << path << endl;
+		CI_LOG_V( "could not open patch from dataSource: " << path );
 		return PatchRef();
 	}
 	return PatchRef( new pd::Patch( patch ) );
