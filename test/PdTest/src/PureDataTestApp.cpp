@@ -25,7 +25,6 @@ class PureDataTestApp : public AppNative {
 	void draw();
 
 	void setupUI();
-	void processDrag( Vec2i pos );
 	void processTap( Vec2i pos );
 
 	void setupBasic();
@@ -45,26 +44,30 @@ class PureDataTestApp : public AppNative {
 void PureDataTestApp::setup()
 {
 	auto ctx = audio2::master();
-	mPureDataNode = ctx->makeNode( new PureDataNode() );
+	mPureDataNode = ctx->makeNode( new PureDataNode( audio2::Node::Format().autoEnable() ) );
 
 	setupBasic();
-	setupUI();
 
 	ctx->enable();
-
 	ctx->printGraph();
+
+	setupUI();
 }
 
 void PureDataTestApp::setupBasic()
 {
-	mPureDataNode >> audio2::master()->getOutput();
+	mPureDataNode->disconnectAll();
 
 	mPatch = mPureDataNode->loadPatch( loadResource( RES_BASIC_PD_PATCH ) );
 	CI_LOG_V( "loaded patch: " << mPatch->filename() );
+
+	mPureDataNode >> audio2::master()->getOutput();
 }
 
 void PureDataTestApp::setupFileInput()
 {
+	mPureDataNode->disconnectAll();
+
 	auto ctx = audio2::master();
 	mSourceFile = audio2::load( loadResource( "cash_satisfied_mind.mp3" ), ctx->getSampleRate() );
 
@@ -72,15 +75,16 @@ void PureDataTestApp::setupFileInput()
 	mPlayerNode->setLoopEnabled();
 	CI_LOG_V( "BufferPlayerNode frames: " << mPlayerNode->getNumFrames() );
 
-	mPlayerNode >> mPureDataNode >> ctx->getOutput();
-
 	mPatch = mPureDataNode->loadPatch( loadResource( RES_INPUT_PD_PATCH ) );
 	CI_LOG_V( "loaded patch: " << mPatch->filename() );
+
+	mPlayerNode >> mPureDataNode >> ctx->getOutput();
 }
 
 void PureDataTestApp::setupUI()
 {
 	mPlayButton = Button( true, "stopped", "playing" );
+	mPlayButton.setEnabled( audio2::master()->isEnabled() );
 	mWidgets.push_back( &mPlayButton );
 
 	mTestSelector.mSegments = { "sinetone", "file input" };
@@ -97,18 +101,9 @@ void PureDataTestApp::setupUI()
 #endif
 
 	getWindow()->getSignalMouseDown().connect( [this] ( MouseEvent &event ) { processTap( event.getPos() ); } );
-	getWindow()->getSignalMouseDrag().connect( [this] ( MouseEvent &event ) { processDrag( event.getPos() ); } );
 	getWindow()->getSignalTouchesBegan().connect( [this] ( TouchEvent &event ) { processTap( event.getTouches().front().getPos() ); } );
-	getWindow()->getSignalTouchesMoved().connect( [this] ( TouchEvent &event ) {
-		for( const TouchEvent::Touch &touch : getActiveTouches() )
-			processDrag( touch.getPos() );
-	} );
 
 	gl::enableAlphaBlending();
-}
-
-void PureDataTestApp::processDrag( Vec2i pos )
-{
 }
 
 void PureDataTestApp::processTap( Vec2i pos )
@@ -116,8 +111,6 @@ void PureDataTestApp::processTap( Vec2i pos )
 	if( mPlayButton.hitTest( pos ) ) {
 		if( mPlayerNode )
 			mPlayerNode->setEnabled( mPlayButton.mEnabled );
-
-		mPureDataNode->setEnabled( mPlayButton.mEnabled );
 	}
 
 	size_t currentIndex = mTestSelector.mCurrentSectionIndex;
@@ -125,25 +118,21 @@ void PureDataTestApp::processTap( Vec2i pos )
 		string currentTest = mTestSelector.currentSection();
 		CI_LOG_V( "selected: " << currentTest );
 
-		auto ctx = audio2::master();
-
-		audio2::ScopedEnableContext scopedEnable( ctx, false ); // TODO: make work without this
-
-		ctx->disconnectAllNodes();
-
 		if( mPatch ) {
 			mPureDataNode->getPd().closePatch( *mPatch );
 			mPatch.reset();
 		}
 
-		if( currentTest == "basic" )
+		if( currentTest == "sinetone" )
 			setupBasic();
-		if( currentTest == "input" ) {
+		if( currentTest == "file input" ) {
 			setupFileInput();
 			mPlayerNode->setEnabled( mPlayButton.mEnabled );
 			mPureDataNode->setEnabled( mPlayButton.mEnabled );
 		}
 	}
+
+	audio2::master()->printGraph();
 }
 
 void PureDataTestApp::update()
