@@ -10,7 +10,7 @@
 #include "../test/common/AudioTestGui.h"
 
 
-#include "PdNode.h"
+#include "PureDataNode.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -18,7 +18,7 @@ using namespace std;
 
 using namespace audio2;
 
-class PdTestApp : public AppNative {
+class PureDataTestApp : public AppNative {
   public:
 	void setup();
 	void update();
@@ -31,7 +31,7 @@ class PdTestApp : public AppNative {
 	void setupBasic();
 	void setupFileInput();
 
-	PdNodeRef mPdNode;
+	PureDataNodeRef mPureDataNode;
 	PatchRef mPatch;
 
 	audio2::SourceFileRef	mSourceFile;
@@ -42,10 +42,10 @@ class PdTestApp : public AppNative {
 	vector<TestWidget *> mWidgets;
 };
 
-void PdTestApp::setup()
+void PureDataTestApp::setup()
 {
 	auto ctx = audio2::master();
-	mPdNode = ctx->makeNode( new PdNode() );
+	mPureDataNode = ctx->makeNode( new PureDataNode() );
 
 	setupBasic();
 	setupUI();
@@ -55,15 +55,15 @@ void PdTestApp::setup()
 	ctx->printGraph();
 }
 
-void PdTestApp::setupBasic()
+void PureDataTestApp::setupBasic()
 {
-	mPdNode >> audio2::master()->getOutput();
+	mPureDataNode >> audio2::master()->getOutput();
 
-	mPatch = mPdNode->loadPatch( loadResource( RES_BASIC_PD_PATCH ) );
+	mPatch = mPureDataNode->loadPatch( loadResource( RES_BASIC_PD_PATCH ) );
 	CI_LOG_V( "loaded patch: " << mPatch->filename() );
 }
 
-void PdTestApp::setupFileInput()
+void PureDataTestApp::setupFileInput()
 {
 	auto ctx = audio2::master();
 	mSourceFile = audio2::load( loadResource( "cash_satisfied_mind.mp3" ), ctx->getSampleRate() );
@@ -72,13 +72,13 @@ void PdTestApp::setupFileInput()
 	mPlayerNode->setLoopEnabled();
 	CI_LOG_V( "BufferPlayerNode frames: " << mPlayerNode->getNumFrames() );
 
-	mPlayerNode >> mPdNode >> ctx->getOutput();
+	mPlayerNode >> mPureDataNode >> ctx->getOutput();
 
-	mPatch = mPdNode->loadPatch( loadResource( RES_INPUT_PD_PATCH ) );
+	mPatch = mPureDataNode->loadPatch( loadResource( RES_INPUT_PD_PATCH ) );
 	CI_LOG_V( "loaded patch: " << mPatch->filename() );
 }
 
-void PdTestApp::setupUI()
+void PureDataTestApp::setupUI()
 {
 	mPlayButton = Button( true, "stopped", "playing" );
 	mWidgets.push_back( &mPlayButton );
@@ -107,16 +107,17 @@ void PdTestApp::setupUI()
 	gl::enableAlphaBlending();
 }
 
-void PdTestApp::processDrag( Vec2i pos )
+void PureDataTestApp::processDrag( Vec2i pos )
 {
 }
 
-void PdTestApp::processTap( Vec2i pos )
+void PureDataTestApp::processTap( Vec2i pos )
 {
 	if( mPlayButton.hitTest( pos ) ) {
 		if( mPlayerNode )
 			mPlayerNode->setEnabled( mPlayButton.mEnabled );
-		mPdNode->setEnabled( mPlayButton.mEnabled );
+
+		mPureDataNode->setEnabled( mPlayButton.mEnabled );
 	}
 
 	size_t currentIndex = mTestSelector.mCurrentSectionIndex;
@@ -131,7 +132,7 @@ void PdTestApp::processTap( Vec2i pos )
 		ctx->disconnectAllNodes();
 
 		if( mPatch ) {
-			mPdNode->getPd().closePatch( *mPatch );
+			mPureDataNode->getPd().closePatch( *mPatch );
 			mPatch.reset();
 		}
 
@@ -140,19 +141,19 @@ void PdTestApp::processTap( Vec2i pos )
 		if( currentTest == "input" ) {
 			setupFileInput();
 			mPlayerNode->setEnabled( mPlayButton.mEnabled );
-			mPdNode->setEnabled( mPlayButton.mEnabled );
+			mPureDataNode->setEnabled( mPlayButton.mEnabled );
 		}
 	}
 }
 
-void PdTestApp::update()
+void PureDataTestApp::update()
 {
 }
 
-void PdTestApp::draw()
+void PureDataTestApp::draw()
 {
 	gl::clear();
 	drawWidgets( mWidgets );
 }
 
-CINDER_APP_NATIVE( PdTestApp, RendererGl )
+CINDER_APP_NATIVE( PureDataTestApp, RendererGl )

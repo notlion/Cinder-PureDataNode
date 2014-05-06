@@ -91,10 +91,10 @@
 		111486691773FEEB00B3578B /* x_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 111485FF1773FEEB00B3578B /* x_net.c */; };
 		1114866A1773FEEB00B3578B /* x_qlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 111486001773FEEB00B3578B /* x_qlist.c */; };
 		1114866B1773FEEB00B3578B /* x_time.c in Sources */ = {isa = PBXBuildFile; fileRef = 111486011773FEEB00B3578B /* x_time.c */; };
-		14795AE21778C96F002C1218 /* PdNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14795AE01778C96F002C1218 /* PdNode.cpp */; };
+		14795AE21778C96F002C1218 /* PureDataNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14795AE01778C96F002C1218 /* PureDataNode.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
-		88F896DEA5DE4B86B94B234A /* PdTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DFE2D7AB5C84D6AB3C146C5 /* PdTestApp.cpp */; };
+		88F896DEA5DE4B86B94B234A /* PureDataTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DFE2D7AB5C84D6AB3C146C5 /* PureDataTestApp.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		C6A954169D8142D08E0D6A08 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 82184AF89D334B619560B67D /* CinderApp.icns */; };
 /* End PBXBuildFile section */
@@ -201,15 +201,15 @@
 		111485FF1773FEEB00B3578B /* x_net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = x_net.c; sourceTree = "<group>"; };
 		111486001773FEEB00B3578B /* x_qlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = x_qlist.c; sourceTree = "<group>"; };
 		111486011773FEEB00B3578B /* x_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = x_time.c; sourceTree = "<group>"; };
-		14795AE01778C96F002C1218 /* PdNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PdNode.cpp; path = ../../../src/PdNode.cpp; sourceTree = "<group>"; };
-		14795AE11778C96F002C1218 /* PdNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PdNode.h; path = ../../../src/PdNode.h; sourceTree = "<group>"; };
+		14795AE01778C96F002C1218 /* PureDataNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PureDataNode.cpp; path = ../../../src/PureDataNode.cpp; sourceTree = "<group>"; };
+		14795AE11778C96F002C1218 /* PureDataNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureDataNode.h; path = ../../../src/PureDataNode.h; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		82184AF89D334B619560B67D /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* PdTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PdTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8DFE2D7AB5C84D6AB3C146C5 /* PdTestApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = PdTestApp.cpp; path = ../src/PdTestApp.cpp; sourceTree = "<group>"; };
+		8DFE2D7AB5C84D6AB3C146C5 /* PureDataTestApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PureDataTestApp.cpp; path = ../src/PureDataTestApp.cpp; sourceTree = "<group>"; };
 		A7C8A59CD38C412080CF3F5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D393B2CE6BBC4A2AA821F85E /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		DD5C27A5510345E19F345C2C /* PdTest_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = PdTest_Prefix.pch; sourceTree = "<group>"; };
@@ -245,9 +245,9 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				14795AE11778C96F002C1218 /* PdNode.h */,
-				14795AE01778C96F002C1218 /* PdNode.cpp */,
-				8DFE2D7AB5C84D6AB3C146C5 /* PdTestApp.cpp */,
+				14795AE11778C96F002C1218 /* PureDataNode.h */,
+				14795AE01778C96F002C1218 /* PureDataNode.cpp */,
+				8DFE2D7AB5C84D6AB3C146C5 /* PureDataTestApp.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -536,7 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1114865F1773FEEB00B3578B /* s_print.c in Sources */,
-				88F896DEA5DE4B86B94B234A /* PdTestApp.cpp in Sources */,
+				88F896DEA5DE4B86B94B234A /* PureDataTestApp.cpp in Sources */,
 				1114865B1773FEEB00B3578B /* s_inter.c in Sources */,
 				111486291773FEEB00B3578B /* d_arithmetic.c in Sources */,
 				1114863C1773FEEB00B3578B /* g_canvas.c in Sources */,
@@ -587,7 +587,7 @@
 				111486081773FEEB00B3578B /* z_print_util.c in Sources */,
 				111486311773FEEB00B3578B /* d_filter.c in Sources */,
 				111486541773FEEB00B3578B /* m_memory.c in Sources */,
-				14795AE21778C96F002C1218 /* PdNode.cpp in Sources */,
+				14795AE21778C96F002C1218 /* PureDataNode.cpp in Sources */,
 				1114864D1773FEEB00B3578B /* g_vslider.c in Sources */,
 				111486461773FEEB00B3578B /* g_rtext.c in Sources */,
 				111486571773FEEB00B3578B /* m_sched.c in Sources */,

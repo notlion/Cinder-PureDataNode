@@ -8,12 +8,12 @@
 #include "cinder/Thread.h"
 
 typedef std::shared_ptr<pd::Patch> PatchRef;
-typedef std::shared_ptr<class PdNode> PdNodeRef;
+typedef std::shared_ptr<class PureDataNode> PureDataNodeRef;
 
-class PdNode : public ci::audio2::Node {
+class PureDataNode : public ci::audio2::Node {
 public:
-	PdNode( const Format &format = Format() );
-	~PdNode();
+	PureDataNode( const Format &format = Format() );
+	~PureDataNode();
 
 	void initialize() override;
 	void uninitialize() override;
@@ -34,5 +34,6 @@ private:
 	pd::PdBase	mPdBase;
 	std::mutex	mMutex;
 	size_t		mNumTicksPerBlock;
+
 	ci::audio2::BufferInterleaved mBufferInterleaved;
 };

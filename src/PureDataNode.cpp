@@ -1,4 +1,4 @@
-#include "PdNode.h"
+#include "PureDataNode.h"
 
 #include "cinder/audio2/dsp/Converter.h"
 #include "cinder/audio2/Debug.h"
@@ -6,8 +6,8 @@
 using namespace std;
 using namespace ci;
 
-PdNode::PdNode( const Format &format )
-: Node( format )
+PureDataNode::PureDataNode( const Format &format )
+	: Node( format )
 {
 	if( getChannelMode() != ChannelMode::SPECIFIED ) {
 		setChannelMode( ChannelMode::SPECIFIED );
@@ -15,11 +15,11 @@ PdNode::PdNode( const Format &format )
 	}
 }
 
-PdNode::~PdNode()
+PureDataNode::~PureDataNode()
 {
 }
 
-void PdNode::initialize()
+void PureDataNode::initialize()
 {
 	mNumTicksPerBlock = getFramesPerBlock() / pd::PdBase::blockSize();
 
@@ -35,14 +35,14 @@ void PdNode::initialize()
 	mPdBase.computeAudio( true );
 }
 
-void PdNode::uninitialize()
+void PureDataNode::uninitialize()
 {
 	lock_guard<mutex> lock( mMutex );
 
 	mPdBase.computeAudio( false );
 }
 
-void PdNode::process( audio2::Buffer *buffer )
+void PureDataNode::process( audio2::Buffer *buffer )
 {
 	if( getNumChannels() > 1 ) {
 		audio2::dsp::interleaveBuffer( buffer, &mBufferInterleaved );
@@ -60,9 +60,9 @@ void PdNode::process( audio2::Buffer *buffer )
 	}
 }
 
-PatchRef PdNode::loadPatch( ci::DataSourceRef dataSource )
+PatchRef PureDataNode::loadPatch( ci::DataSourceRef dataSource )
 {
-	CI_ASSERT_MSG( isInitialized(), "PdNode must be initialized before opening a patch" );
+	CI_ASSERT_MSG( isInitialized(), "PureDataNode must be initialized before opening a patch" );
 
 	lock_guard<mutex> lock( mMutex );
 
@@ -75,31 +75,31 @@ PatchRef PdNode::loadPatch( ci::DataSourceRef dataSource )
 	return PatchRef( new pd::Patch( patch ) );
 }
 
-void PdNode::sendBang( const std::string& dest )
+void PureDataNode::sendBang( const std::string& dest )
 {
 	lock_guard<mutex> lock( mMutex );
 	mPdBase.sendBang( dest );
 }
 
-void PdNode::sendFloat( const std::string& dest, float value )
+void PureDataNode::sendFloat( const std::string& dest, float value )
 {
 	lock_guard<mutex> lock( mMutex );
 	mPdBase.sendFloat( dest, value );
 }
 
-void PdNode::sendSymbol( const std::string& dest, const std::string& symbol )
+void PureDataNode::sendSymbol( const std::string& dest, const std::string& symbol )
 {
 	lock_guard<mutex> lock( mMutex );
 	mPdBase.sendSymbol( dest, symbol );
 }
 
-void PdNode::sendList( const std::string& dest, const pd::List& list )
+void PureDataNode::sendList( const std::string& dest, const pd::List& list )
 {
 	lock_guard<mutex> lock( mMutex );
 	mPdBase.sendList( dest, list );
 }
 
-void PdNode::sendMessage( const std::string& dest, const std::string& msg, const pd::List& list )
+void PureDataNode::sendMessage( const std::string& dest, const std::string& msg, const pd::List& list )
 {
 	lock_guard<mutex> lock( mMutex );
 	mPdBase.sendMessage( dest, msg, list );
