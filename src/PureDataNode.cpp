@@ -73,10 +73,10 @@ PatchRef PureDataNode::loadPatch( ci::DataSourceRef dataSource )
 	const fs::path& path = dataSource->getFilePath();
 	pd::Patch patch = mPdBase.openPatch( path.filename().string(), path.parent_path().string() );
 	if( ! patch.isValid() ) {
-		CI_LOG_V( "could not open patch from dataSource: " << path );
+		CI_LOG_E( "could not open patch from dataSource: " << path );
 		return PatchRef();
 	}
-	return PatchRef( new pd::Patch( patch ) );
+	return make_shared<pd::Patch>( patch );
 }
 
 void PureDataNode::sendBang( const std::string& dest )
