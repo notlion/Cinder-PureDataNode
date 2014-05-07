@@ -6,6 +6,7 @@
 
 #include "cinder/audio2/Node.h"
 #include "cinder/Thread.h"
+#include "cinder/Datasource.h"
 
 namespace cipd {
 
@@ -24,13 +25,14 @@ public:
 	pd::PdBase& getPd()	{ return mPdBase; }
 
 	PatchRef loadPatch( ci::DataSourceRef dataSource );
-
+	bool closePatch(PatchRef patch);
 	// thread-safe senders
 	void sendBang(const std::string& dest);
 	void sendFloat(const std::string& dest, float value);
 	void sendSymbol(const std::string& dest, const std::string& symbol);
 	void sendList(const std::string& dest, const pd::List& list);
 	void sendMessage(const std::string& dest, const std::string& msg, const pd::List& list = pd::List());
+
 
 private:
 	pd::PdBase	mPdBase;
