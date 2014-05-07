@@ -6,29 +6,22 @@
 #include "cinder/audio2/Source.h"
 #include "cinder/audio2/SamplePlayer.h"
 #include "cinder/audio2/Debug.h"
-
-#include "../test/common/AudioTestGui.h"
-
+#include "cinder\params\Params.h"
 
 #include "PureDataNode.h"
-
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-using namespace audio2;
-
-class PureDataTestApp : public AppNative {
-  public:
+class libpdTestApp : public AppNative {
+public:
 	void setup();
-	void update();
 	void draw();
-
-	void setupUI();
-	void processTap( Vec2i pos );
-
 	void setupBasic();
 	void setupFileInput();
+	void touchOsc(Vec2i pos);
+
+	params::InterfaceGlRef	mParams;
 
 	cipd::PureDataNodeRef	mPureDataNode;
 	cipd::PatchRef			mPatch;
@@ -36,113 +29,84 @@ class PureDataTestApp : public AppNative {
 	audio2::SourceFileRef	mSourceFile;
 	audio2::BufferPlayerRef	mPlayerNode;
 
-	VSelector mTestSelector;
-	Button mPlayButton;
-	vector<TestWidget *> mWidgets;
+	string msg;
 };
 
-void PureDataTestApp::setup()
-{
-	auto ctx = audio2::master();
-	mPureDataNode = ctx->makeNode( new cipd::PureDataNode( audio2::Node::Format().autoEnable() ) );
-
-	setupBasic();
-
-	ctx->enable();
-	ctx->printGraph();
-
-	setupUI();
-}
-
-void PureDataTestApp::setupBasic()
-{
+void libpdTestApp::setupFileInput(){
+	mPureDataNode->closePatch(mPatch);
 	mPureDataNode->disconnectAll();
-
-	mPatch = mPureDataNode->loadPatch( loadResource( RES_BASIC_PD_PATCH ) );
-	CI_LOG_V( "loaded patch: " << mPatch->filename() );
-
-	mPureDataNode >> audio2::master()->getOutput();
-}
-
-void PureDataTestApp::setupFileInput()
-{
-	mPureDataNode->disconnectAll();
-
+	
+	mSourceFile = audio2::load(loadAsset("DaisyBell1895.ogg"));
 	auto ctx = audio2::master();
-	mSourceFile = audio2::load( loadResource( "cash_satisfied_mind.mp3" ), ctx->getSampleRate() );
-
-	mPlayerNode = ctx->makeNode( new audio2::BufferPlayer( mSourceFile->loadBuffer() ) );
+	mPlayerNode = ctx->makeNode(new audio2::BufferPlayer(mSourceFile->loadBuffer()));
 	mPlayerNode->setLoopEnabled();
-	CI_LOG_V( "BufferPlayerNode frames: " << mPlayerNode->getNumFrames() );
-
-	mPatch = mPureDataNode->loadPatch( loadResource( RES_INPUT_PD_PATCH ) );
-	CI_LOG_V( "loaded patch: " << mPatch->filename() );
+	mPlayerNode->start();
+	CI_LOG_V("BufferPlayerNode frames: " << mPlayerNode->getNumFrames());
+	
+	mPatch->clear();
+	mPatch = mPureDataNode->loadPatch(loadAsset("input.pd"));
+	CI_LOG_V("loaded patch: " << mPatch->filename());
 
 	mPlayerNode >> mPureDataNode >> ctx->getOutput();
+
+	msg = "Ogg file playing from Audio2, routed to Pure-data patch, \n"
+		"and then to output.\n"
+		"Song: Unknown singer - Daisy bell (1895)\n"
+		"https://archive.org/details/DaisyBell1895\n\n"
+		"See setupFileInput() and 'input.pd' for more info";
 }
 
-void PureDataTestApp::setupUI()
+void libpdTestApp::setupBasic()
 {
-	mPlayButton = Button( true, "stopped", "playing" );
-	mPlayButton.setEnabled( audio2::master()->isEnabled() );
-	mWidgets.push_back( &mPlayButton );
-
-	mTestSelector.mSegments = { "sinetone", "file input" };
-	mWidgets.push_back( &mTestSelector );
-
-#if defined( CINDER_COCOA_TOUCH )
-	mPlayButton.bounds = Rectf( 0, 0, 120, 60 );
-	mPlayButton.textIsCentered = false;
-	mTestSelector.bounds = Rectf( getWindowWidth() - 190, 0.0f, getWindowWidth(), 160.0f );
-	mTestSelector.textIsCentered = false;
+	mPureDataNode->closePatch(mPatch);
+	mPureDataNode->disconnectAll();
+	if (mPureDataNode->isInitialized())
+	{
+		mPatch->clear();
+	}
+#if defined (CINDER_MSW)
+	mPatch = mPureDataNode->loadPatch(loadAsset("basic.pd"));
 #else
-	mPlayButton.mBounds = Rectf( 0, 0, 200, 60 );
-	mTestSelector.mBounds = Rectf( getWindowCenter().x + 100, 0.0f, getWindowWidth(), 160.0f );
+	mPatch = mPureDataNode->loadPatch(loadResource(RES_BASIC_PD_PATCH));
 #endif
+	CI_LOG_V("loaded patch: " << mPatch->filename());
+	
+	mPureDataNode >> audio2::master()->getOutput();
+	getWindow()->getSignalMouseMove().connect([this](MouseEvent &event) { touchOsc(event.getPos()); });
 
-	getWindow()->getSignalMouseDown().connect( [this] ( MouseEvent &event ) { processTap( event.getPos() ); } );
-	getWindow()->getSignalTouchesBegan().connect( [this] ( TouchEvent &event ) { processTap( event.getTouches().front().getPos() ); } );
+	msg = "Basic output from Pure-data to master output through Audio2\n"
+		"Cinder is sending data to patch via 'recive' pins\n"
+		"Move your mouse to change sound!\n\n"
+		"See setupBasic() and 'basic.pd' for more info!";
+}
 
+void libpdTestApp::touchOsc(Vec2i pos){
+	mPureDataNode->sendFloat("freq", pos.x);
+	mPureDataNode->sendFloat("amp", (float)pos.y / (float)getWindowHeight());
+}
+
+void libpdTestApp::setup()
+{
+	auto ctx = audio2::master();
+	mPureDataNode = ctx->makeNode(new cipd::PureDataNode(audio2::Node::Format().autoEnable())); 
+	
+	setupBasic();
+	
+	audio2::master()->enable();
+	audio2::master()->printGraph();
+
+	mParams = params::InterfaceGl::create(getWindow(), "libpd sample", toPixels(Vec2i(200, 100)));
+	mParams->addButton("Basic patch", std::bind(&libpdTestApp::setupBasic, this));
+	mParams->addButton("Input patch", std::bind(&libpdTestApp::setupFileInput, this));
+	setWindowSize(Vec2i(640, 200));
 	gl::enableAlphaBlending();
 }
 
-void PureDataTestApp::processTap( Vec2i pos )
-{
-	if( mPlayButton.hitTest( pos ) ) {
-		if( mPlayerNode )
-			mPlayerNode->setEnabled( mPlayButton.mEnabled );
-	}
-
-	size_t currentIndex = mTestSelector.mCurrentSectionIndex;
-	if( mTestSelector.hitTest( pos ) && currentIndex != mTestSelector.mCurrentSectionIndex ) {
-		string currentTest = mTestSelector.currentSection();
-		CI_LOG_V( "selected: " << currentTest );
-
-		if( mPatch ) {
-			mPureDataNode->getPd().closePatch( *mPatch );
-			mPatch.reset();
-		}
-
-		if( currentTest == "sinetone" )
-			setupBasic();
-		if( currentTest == "file input" ) {
-			setupFileInput();
-			mPlayerNode->setEnabled( mPlayButton.mEnabled );
-			mPureDataNode->setEnabled( mPlayButton.mEnabled );
-		}
-	}
-
-	audio2::master()->printGraph();
-}
-
-void PureDataTestApp::update()
-{
-}
-
-void PureDataTestApp::draw()
+void libpdTestApp::draw()
 {
 	gl::clear();
-	drawWidgets( mWidgets );
+	mParams->draw();
+	gl::drawString(msg, Vec2f(250, 25));
 }
 
-CINDER_APP_NATIVE( PureDataTestApp, RendererGl )
+CINDER_APP_NATIVE(libpdTestApp, RendererGl)
