@@ -2,10 +2,10 @@
 #include "cinder/gl/gl.h"
 #include "Resources.h"
 
-#include "cinder/audio2/Context.h"
-#include "cinder/audio2/Source.h"
-#include "cinder/audio2/SamplePlayer.h"
-#include "cinder/audio2/Debug.h"
+#include "cinder/audio/Context.h"
+#include "cinder/audio/Source.h"
+#include "cinder/audio/SamplePlayer.h"
+#include "cinder/audio/Debug.h"
 
 #include "../test/common/AudioTestGui.h"
 
@@ -16,7 +16,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-using namespace audio2;
+using namespace audio;
 
 class PureDataTestApp : public AppNative {
   public:
@@ -33,8 +33,8 @@ class PureDataTestApp : public AppNative {
 	cipd::PureDataNodeRef	mPureDataNode;
 	cipd::PatchRef			mPatch;
 
-	audio2::SourceFileRef	mSourceFile;
-	audio2::BufferPlayerRef	mPlayerNode;
+	audio::SourceFileRef	mSourceFile;
+	audio::BufferPlayerRef	mPlayerNode;
 
 	VSelector mTestSelector;
 	Button mPlayButton;
@@ -43,8 +43,8 @@ class PureDataTestApp : public AppNative {
 
 void PureDataTestApp::setup()
 {
-	auto ctx = audio2::master();
-	mPureDataNode = ctx->makeNode( new cipd::PureDataNode( audio2::Node::Format().autoEnable() ) );
+	auto ctx = audio::master();
+	mPureDataNode = ctx->makeNode( new cipd::PureDataNode( audio::Node::Format().autoEnable() ) );
 
 	setupBasic();
 
@@ -61,17 +61,17 @@ void PureDataTestApp::setupBasic()
 	mPatch = mPureDataNode->loadPatch( loadResource( RES_BASIC_PD_PATCH ) );
 	CI_LOG_V( "loaded patch: " << mPatch->filename() );
 
-	mPureDataNode >> audio2::master()->getOutput();
+	mPureDataNode >> audio::master()->getOutput();
 }
 
 void PureDataTestApp::setupFileInput()
 {
 	mPureDataNode->disconnectAll();
 
-	auto ctx = audio2::master();
-	mSourceFile = audio2::load( loadResource( "cash_satisfied_mind.mp3" ), ctx->getSampleRate() );
+	auto ctx = audio::master();
+	mSourceFile = audio::load( loadResource( "cash_satisfied_mind.mp3" ), ctx->getSampleRate() );
 
-	mPlayerNode = ctx->makeNode( new audio2::BufferPlayer( mSourceFile->loadBuffer() ) );
+	mPlayerNode = ctx->makeNode( new audio::BufferPlayer( mSourceFile->loadBuffer() ) );
 	mPlayerNode->setLoopEnabled();
 	CI_LOG_V( "BufferPlayerNode frames: " << mPlayerNode->getNumFrames() );
 
@@ -84,7 +84,7 @@ void PureDataTestApp::setupFileInput()
 void PureDataTestApp::setupUI()
 {
 	mPlayButton = Button( true, "stopped", "playing" );
-	mPlayButton.setEnabled( audio2::master()->isEnabled() );
+	mPlayButton.setEnabled( audio::master()->isEnabled() );
 	mWidgets.push_back( &mPlayButton );
 
 	mTestSelector.mSegments = { "sinetone", "file input" };
@@ -132,7 +132,7 @@ void PureDataTestApp::processTap( Vec2i pos )
 		}
 	}
 
-	audio2::master()->printGraph();
+	audio::master()->printGraph();
 }
 
 void PureDataTestApp::update()

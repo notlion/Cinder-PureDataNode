@@ -4,7 +4,7 @@
 #include "PdReceiver.hpp"
 #include "PdTypes.hpp"
 
-#include "cinder/audio2/Node.h"
+#include "cinder/audio/Node.h"
 #include "cinder/Thread.h"
 
 namespace cipd {
@@ -12,14 +12,14 @@ namespace cipd {
 typedef std::shared_ptr<pd::Patch> PatchRef;
 typedef std::shared_ptr<class PureDataNode> PureDataNodeRef;
 
-class PureDataNode : public ci::audio2::Node {
+class PureDataNode : public ci::audio::Node {
 public:
 	PureDataNode( const Format &format = Format() );
 	~PureDataNode();
 
 	void initialize() override;
 	void uninitialize() override;
-	void process( ci::audio2::Buffer *buffer );
+	void process( ci::audio::Buffer *buffer );
 
 	pd::PdBase& getPd()	{ return mPdBase; }
 
@@ -37,7 +37,7 @@ private:
 	std::mutex	mMutex;
 	size_t		mNumTicksPerBlock;
 
-	ci::audio2::BufferInterleaved mBufferInterleaved;
+	ci::audio::BufferInterleaved mBufferInterleaved;
 };
 
 } // namespace cipd
