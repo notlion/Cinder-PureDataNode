@@ -1,8 +1,8 @@
 #include "PureDataNode.h"
 
-#include "cinder/audio2/Context.h"
-#include "cinder/audio2/dsp/Converter.h"
-#include "cinder/audio2/Debug.h"
+#include "cinder/audio/Context.h"
+#include "cinder/audio/dsp/Converter.h"
+#include "cinder/audio/Debug.h"
 
 using namespace std;
 using namespace ci;
@@ -27,7 +27,7 @@ void PureDataNode::initialize()
 	mNumTicksPerBlock = getFramesPerBlock() / pd::PdBase::blockSize();
 
 	if( getNumChannels() > 1 )
-		mBufferInterleaved = audio2::BufferInterleaved( getFramesPerBlock(), getNumChannels() );
+		mBufferInterleaved = audio::BufferInterleaved( getFramesPerBlock(), getNumChannels() );
 
 	lock_guard<mutex> lock( mMutex );
 
@@ -45,16 +45,16 @@ void PureDataNode::uninitialize()
 	mPdBase.computeAudio( false );
 }
 
-void PureDataNode::process( audio2::Buffer *buffer )
+void PureDataNode::process( audio::Buffer *buffer )
 {
 	if( getNumChannels() > 1 ) {
-		audio2::dsp::interleaveBuffer( buffer, &mBufferInterleaved );
+		audio::dsp::interleaveBuffer( buffer, &mBufferInterleaved );
 
 		mMutex.lock();
 		mPdBase.processFloat( mNumTicksPerBlock, mBufferInterleaved.getData(), mBufferInterleaved.getData() );
 		mMutex.unlock();
 
-		audio2::dsp::deinterleaveBuffer( &mBufferInterleaved, buffer );
+		audio::dsp::deinterleaveBuffer( &mBufferInterleaved, buffer );
 	}
 	else {
 		mMutex.lock();
