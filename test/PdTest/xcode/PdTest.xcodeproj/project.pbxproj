@@ -12,7 +12,6 @@
 		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
-		1101F99619188CF900002281 /* cash_satisfied_mind.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1101F99519188CF900002281 /* cash_satisfied_mind.mp3 */; };
 		1101F9F819189A3B00002281 /* d_arithmetic.c in Sources */ = {isa = PBXBuildFile; fileRef = 1101F9AC19189A3B00002281 /* d_arithmetic.c */; };
 		1101F9F919189A3B00002281 /* d_array.c in Sources */ = {isa = PBXBuildFile; fileRef = 1101F9AD19189A3B00002281 /* d_array.c */; };
 		1101F9FA19189A3B00002281 /* d_ctl.c in Sources */ = {isa = PBXBuildFile; fileRef = 1101F9AE19189A3B00002281 /* d_ctl.c */; };
@@ -94,6 +93,7 @@
 		1101FA5919189A7600002281 /* PdTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1101FA5619189A7600002281 /* PdTypes.cpp */; };
 		1104F5251777C193003EAA2B /* basic.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5231777C193003EAA2B /* basic.pd */; };
 		1104F5261777C193003EAA2B /* input.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5241777C193003EAA2B /* input.pd */; };
+		111A62D6192DD2ED0024BE66 /* cash_satisfied_mind.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 111A62D5192DD2ED0024BE66 /* cash_satisfied_mind.mp3 */; };
 		14795AE21778C96F002C1218 /* PureDataNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14795AE01778C96F002C1218 /* PureDataNode.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
@@ -109,7 +109,6 @@
 		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		1101F99519188CF900002281 /* cash_satisfied_mind.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cash_satisfied_mind.mp3; path = "../../../../Cinder-Audio2/assets/cash_satisfied_mind.mp3"; sourceTree = "<group>"; };
 		1101F9AC19189A3B00002281 /* d_arithmetic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = d_arithmetic.c; sourceTree = "<group>"; };
 		1101F9AD19189A3B00002281 /* d_array.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = d_array.c; sourceTree = "<group>"; };
 		1101F9AE19189A3B00002281 /* d_ctl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = d_ctl.c; sourceTree = "<group>"; };
@@ -207,6 +206,7 @@
 		1101FA5719189A7600002281 /* PdTypes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PdTypes.hpp; sourceTree = "<group>"; };
 		1104F5231777C193003EAA2B /* basic.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic.pd; path = ../resources/basic.pd; sourceTree = "<group>"; };
 		1104F5241777C193003EAA2B /* input.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = input.pd; path = ../resources/input.pd; sourceTree = "<group>"; };
+		111A62D5192DD2ED0024BE66 /* cash_satisfied_mind.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cash_satisfied_mind.mp3; path = ../../../data/cash_satisfied_mind.mp3; sourceTree = "<group>"; };
 		14795AE01778C96F002C1218 /* PureDataNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PureDataNode.cpp; path = ../../../src/PureDataNode.cpp; sourceTree = "<group>"; };
 		14795AE11778C96F002C1218 /* PureDataNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureDataNode.h; path = ../../../src/PureDataNode.h; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -460,7 +460,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1101F99519188CF900002281 /* cash_satisfied_mind.mp3 */,
+				111A62D5192DD2ED0024BE66 /* cash_satisfied_mind.mp3 */,
 				1104F5231777C193003EAA2B /* basic.pd */,
 				1104F5241777C193003EAA2B /* input.pd */,
 				82184AF89D334B619560B67D /* CinderApp.icns */,
@@ -532,7 +532,7 @@
 			files = (
 				1104F5261777C193003EAA2B /* input.pd in Resources */,
 				1104F5251777C193003EAA2B /* basic.pd in Resources */,
-				1101F99619188CF900002281 /* cash_satisfied_mind.mp3 in Resources */,
+				111A62D6192DD2ED0024BE66 /* cash_satisfied_mind.mp3 in Resources */,
 				C6A954169D8142D08E0D6A08 /* CinderApp.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -654,10 +654,7 @@
 					"-DHAVE_ALLOCA_H",
 					"-Wno-parentheses",
 				);
-				OTHER_LDFLAGS = (
-					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
-					"../../../../Cinder-Audio2/lib/macosx/libaudio2_d.a",
-				);
+				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
 				PRODUCT_NAME = PdTest;
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;
@@ -687,10 +684,7 @@
 					"-DHAVE_ALLOCA_H",
 					"-Wno-parentheses",
 				);
-				OTHER_LDFLAGS = (
-					"\"$(CINDER_PATH)/lib/libcinder.a\"",
-					"../../../../Cinder-Audio2/lib/macosx/libaudio2.a",
-				);
+				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
 				PRODUCT_NAME = PdTest;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = ./build;
@@ -719,7 +713,7 @@
 					"-Wno-parentheses",
 				);
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../../Cinder-Audio2/src/ ../../../libpd";
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../libpd";
 			};
 			name = Debug;
 		};
@@ -744,7 +738,7 @@
 					"-Wno-parentheses",
 				);
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../../Cinder-Audio2/src/ ../../../libpd";
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../libpd";
 			};
 			name = Release;
 		};
