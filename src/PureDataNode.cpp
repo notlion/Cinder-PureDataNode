@@ -109,17 +109,20 @@ void PureDataNode::sendMessage( const std::string& dest, const std::string& msg,
 	mPdBase.sendMessage( dest, msg, list );
 }
 
-bool PureDataNode::readArray( const std::string& arrayName, std::vector<float>& dest, int readLen, int offset ) {
+bool PureDataNode::readArray( const std::string& arrayName, std::vector<float>& dest, int readLen, int offset )
+{
 	lock_guard<mutex> lock( mMutex );
 	return mPdBase.readArray( arrayName, dest, readLen, offset );
 }
 
-bool PureDataNode::writeArray( const std::string& arrayName, std::vector<float>& source, int writeLen, int offset ) {
+bool PureDataNode::writeArray( const std::string& arrayName, std::vector<float>& source, int writeLen, int offset )
+{
 	lock_guard<mutex> lock( mMutex );
 	return mPdBase.writeArray( arrayName, source, writeLen, offset );
 }
 
-void PureDataNode::clearArray( const std::string& arrayName, int value ) {
+void PureDataNode::clearArray( const std::string& arrayName, int value )
+{
 	lock_guard<mutex> lock( mMutex );
 	mPdBase.clearArray( arrayName, value );
 }

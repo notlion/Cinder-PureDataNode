@@ -26,15 +26,15 @@ public:
 	PatchRef loadPatch( ci::DataSourceRef dataSource );
 
 	// thread-safe senders
-	void sendBang(const std::string& dest);
-	void sendFloat(const std::string& dest, float value);
-	void sendSymbol(const std::string& dest, const std::string& symbol);
-	void sendList(const std::string& dest, const pd::List& list);
-	void sendMessage(const std::string& dest, const std::string& msg, const pd::List& list = pd::List());
+	void sendBang( const std::string& dest );
+	void sendFloat( const std::string& dest, float value );
+	void sendSymbol( const std::string& dest, const std::string& symbol );
+	void sendList( const std::string& dest, const pd::List& list );
+	void sendMessage( const std::string& dest, const std::string& msg, const pd::List& list = pd::List() );
 
-	bool readArray(const std::string& arrayName, std::vector<float>& dest, int readLen = -1, int offset = 0);
-	bool writeArray(const std::string& arrayName, std::vector<float>& source, int writeLen = -1, int offset = 0);
-	void clearArray(const std::string& arrayName, int value = 0);
+	bool readArray( const std::string& arrayName, std::vector<float>& dest, int readLen = -1, int offset = 0 );
+	bool writeArray( const std::string& arrayName, std::vector<float>& source, int writeLen = -1, int offset = 0 );
+	void clearArray( const std::string& arrayName, int value = 0 );
 
 private:
 	pd::PdBase	mPdBase;
