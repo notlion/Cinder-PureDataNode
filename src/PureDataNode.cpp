@@ -79,6 +79,15 @@ PatchRef PureDataNode::loadPatch( ci::DataSourceRef dataSource )
 	return make_shared<pd::Patch>( patch );
 }
 
+void PureDataNode::closePatch( const PatchRef &patch )
+{
+	if( ! patch )
+		return;
+
+	lock_guard<mutex> lock( mMutex );
+	mPdBase.closePatch( *patch );
+}
+
 void PureDataNode::sendBang( const std::string& dest )
 {
 	lock_guard<mutex> lock( mMutex );

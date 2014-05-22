@@ -23,7 +23,8 @@ public:
 
 	pd::PdBase& getPd()	{ return mPdBase; }
 
-	PatchRef loadPatch( ci::DataSourceRef dataSource );
+	PatchRef	loadPatch( ci::DataSourceRef dataSource );
+	void		closePatch( const PatchRef &patch );
 
 	// thread-safe senders
 	void sendBang( const std::string& dest );
