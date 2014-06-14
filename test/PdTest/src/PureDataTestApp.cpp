@@ -47,7 +47,7 @@ void PureDataTestApp::setup()
 	setupBasic();
 
 	ctx->enable();
-	ctx->printGraph();
+	PRINT_GRAPH( ctx );
 
 	setupUI();
 }
@@ -130,7 +130,7 @@ void PureDataTestApp::processTap( Vec2i pos )
 		}
 	}
 
-	audio::master()->printGraph();
+	PRINT_GRAPH( audio::master() );
 }
 
 void PureDataTestApp::update()
