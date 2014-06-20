@@ -243,7 +243,7 @@
 		01B97315FEAEA392516A2CEA /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				1114857E1773FEDD00B3578B /* libpd */,
+				11CD5380195437BA00F1C962 /* PureDataNode */,
 			);
 			name = Blocks;
 			sourceTree = "<group>";
@@ -251,8 +251,6 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				14795AE11778C96F002C1218 /* PureDataNode.h */,
-				14795AE01778C96F002C1218 /* PureDataNode.cpp */,
 				8DFE2D7AB5C84D6AB3C146C5 /* PureDataTestApp.cpp */,
 			);
 			name = Source;
@@ -425,6 +423,24 @@
 				1101F9F719189A3B00002281 /* x_time.c */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		11CD5380195437BA00F1C962 /* PureDataNode */ = {
+			isa = PBXGroup;
+			children = (
+				11CD5381195437C600F1C962 /* src */,
+				1114857E1773FEDD00B3578B /* libpd */,
+			);
+			name = PureDataNode;
+			sourceTree = "<group>";
+		};
+		11CD5381195437C600F1C962 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				14795AE11778C96F002C1218 /* PureDataNode.h */,
+				14795AE01778C96F002C1218 /* PureDataNode.cpp */,
+			);
+			name = src;
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
