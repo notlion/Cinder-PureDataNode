@@ -91,8 +91,6 @@
 		1101FA5119189A6300002281 /* z_queued.c in Sources */ = {isa = PBXBuildFile; fileRef = 1101FA4D19189A6300002281 /* z_queued.c */; };
 		1101FA5819189A7600002281 /* PdBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1101FA5219189A7600002281 /* PdBase.cpp */; };
 		1101FA5919189A7600002281 /* PdTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1101FA5619189A7600002281 /* PdTypes.cpp */; };
-		1104F5251777C193003EAA2B /* basic.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5231777C193003EAA2B /* basic.pd */; };
-		1104F5261777C193003EAA2B /* input.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1104F5241777C193003EAA2B /* input.pd */; };
 		111A62D6192DD2ED0024BE66 /* cash_satisfied_mind.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 111A62D5192DD2ED0024BE66 /* cash_satisfied_mind.mp3 */; };
 		14795AE21778C96F002C1218 /* PureDataNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14795AE01778C96F002C1218 /* PureDataNode.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
@@ -204,8 +202,6 @@
 		1101FA5519189A7600002281 /* PdReceiver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PdReceiver.hpp; sourceTree = "<group>"; };
 		1101FA5619189A7600002281 /* PdTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PdTypes.cpp; sourceTree = "<group>"; };
 		1101FA5719189A7600002281 /* PdTypes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PdTypes.hpp; sourceTree = "<group>"; };
-		1104F5231777C193003EAA2B /* basic.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic.pd; path = ../resources/basic.pd; sourceTree = "<group>"; };
-		1104F5241777C193003EAA2B /* input.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = input.pd; path = ../resources/input.pd; sourceTree = "<group>"; };
 		111A62D5192DD2ED0024BE66 /* cash_satisfied_mind.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cash_satisfied_mind.mp3; path = ../../../data/cash_satisfied_mind.mp3; sourceTree = "<group>"; };
 		14795AE01778C96F002C1218 /* PureDataNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PureDataNode.cpp; path = ../../../src/PureDataNode.cpp; sourceTree = "<group>"; };
 		14795AE11778C96F002C1218 /* PureDataNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureDataNode.h; path = ../../../src/PureDataNode.h; sourceTree = "<group>"; };
@@ -477,8 +473,6 @@
 			isa = PBXGroup;
 			children = (
 				111A62D5192DD2ED0024BE66 /* cash_satisfied_mind.mp3 */,
-				1104F5231777C193003EAA2B /* basic.pd */,
-				1104F5241777C193003EAA2B /* input.pd */,
 				82184AF89D334B619560B67D /* CinderApp.icns */,
 				A7C8A59CD38C412080CF3F5C /* Info.plist */,
 			);
@@ -546,8 +540,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1104F5261777C193003EAA2B /* input.pd in Resources */,
-				1104F5251777C193003EAA2B /* basic.pd in Resources */,
 				111A62D6192DD2ED0024BE66 /* cash_satisfied_mind.mp3 in Resources */,
 				C6A954169D8142D08E0D6A08 /* CinderApp.icns in Resources */,
 			);
