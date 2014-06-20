@@ -10,7 +10,9 @@
 	version="0.5"
 	>
 
-	<includePath>libpd/</includePath>
+	<includePath>libpd/cpp</includePath>
+	<includePath>libpd/libpd_wrapper</includePath>
+	<includePath>libpd/pure_data</includePath>
 	<includePath>src</includePath>
 
 	<headerPattern>src/*.h</headerPattern>
