@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Blocks">
+      <UniqueIdentifier>{0B081ACE-4A50-44A4-8933-2C761090A862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\PureDataNode">
+      <UniqueIdentifier>{e18fff04-2d7f-40cb-a8b0-1dd544da40d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\PureDataNode\src">
+      <UniqueIdentifier>{b4a88222-6fcc-43fc-849f-7637d747297a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\PureDataNode\libpd">
+      <UniqueIdentifier>{4174fe26-321b-4197-b7d2-372e3e10e2d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\PureDataNode\libpd\cpp">
+      <UniqueIdentifier>{576ab89b-2c98-4381-8c65-ec97e0c94fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\PureDataNode\libpd\pure-data">
+      <UniqueIdentifier>{e0b17c27-6975-4eac-9541-db01ee4a3795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\PureDataNode\libpd\pure-data\src">
+      <UniqueIdentifier>{f52d68a4-a675-445d-b18e-277c06552129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\PureDataNode\libpd\libpd_wrapper">
+      <UniqueIdentifier>{a7381589-9780-4333-948f-af3b370bd668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\PureDataNode\libpd\libpd_wrapper\util">
+      <UniqueIdentifier>{f172d608-19da-454b-9b32-494884ba3710}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\src\PureDataNode.cpp">
+      <Filter>Blocks\PureDataNode\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\cpp\PdBase.cpp">
+      <Filter>Blocks\PureDataNode\libpd\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\cpp\PdTypes.cpp">
+      <Filter>Blocks\PureDataNode\libpd\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_arithmetic.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_array.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_ctl.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_dac.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_delay.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_fft.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_fft_mayer.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_fftroutine.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_fftsg_h.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_filter.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_global.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_math.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_misc.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_osc.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_resample.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_soundfile.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_ugen.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_all_guis.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_array.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_bang.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_canvas.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_editor.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_graph.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_guiconnect.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_hdial.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_hslider.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_io.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_mycanvas.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_numbox.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_readwrite.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_rtext.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_scalar.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_template.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_text.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_toggle.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_traversal.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_vdial.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_vslider.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_vumeter.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_atom.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_binbuf.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_class.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_conf.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_glob.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_memory.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_obj.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_pd.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_sched.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_audio.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_audio_dummy.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_file.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_inter.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_loader.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_main.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_path.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_print.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_utf8.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_acoustics.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_arithmetic.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_array.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_connective.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_gui.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_interface.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_list.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_midi.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_misc.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_net.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_scalar.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_text.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_time.c">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\s_libpdmidi.c">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\x_libpdreceive.c">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\z_hooks.c">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\z_libpd.c">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\util\ringbuffer.c">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\util\z_print_util.c">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\util\z_queued.c">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PureDataTestApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\PureDataNode.h">
+      <Filter>Blocks\PureDataNode\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\cpp\PdBase.hpp">
+      <Filter>Blocks\PureDataNode\libpd\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\cpp\PdMidiReceiver.hpp">
+      <Filter>Blocks\PureDataNode\libpd\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\cpp\PdReceiver.hpp">
+      <Filter>Blocks\PureDataNode\libpd\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\cpp\PdTypes.hpp">
+      <Filter>Blocks\PureDataNode\libpd\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\pure-data\src\g_all_guis.h">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\pure-data\src\g_canvas.h">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\pure-data\src\m_imp.h">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\pure-data\src\m_pd.h">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\pure-data\src\s_stuff.h">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\pure-data\src\s_utf8.h">
+      <Filter>Blocks\PureDataNode\libpd\pure-data\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\x_libpdreceive.h">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\z_hooks.h">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\z_libpd.h">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\util\ringbuffer.h">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\util\z_print_util.h">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\util\z_queued.h">
+      <Filter>Blocks\PureDataNode\libpd\libpd_wrapper\util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8F48C87E-0B29-4471-9D77-7AB5441EEF02}</ProjectGuid>
+    <RootNamespace>PdTest</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\include;..\..\..\..\..\include;..\..\..\..\..\boost;..\..\..\libpd\libpd_wrapper;..\..\..\libpd\libpd_wrapper\util;..\..\..\libpd\pure-data\src;..\..\..\libpd\cpp;..\..\..\src</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;PD;USEAPI_DUMMY;HAVEAPI_DUMMY;_DEBUG;_WINDOWS;NOMINMAX;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>"..\..\..\..\..\cinder-dev\include";..\include</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>cinder-$(PlatformToolset)_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>"..\..\..\..\lib\msw\$(PlatformTarget)"</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+      <IgnoreSpecificDefaultLibraries>LIBCMT;LIBCPMT</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\include;..\..\..\..\..\include;..\..\..\..\..\boost;..\..\..\libpd\libpd_wrapper;..\..\..\libpd\libpd_wrapper\util;..\..\..\libpd\pure-data\src;..\..\..\libpd\cpp;..\..\..\src</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;PD;USEAPI_DUMMY;HAVEAPI_DUMMY;NDEBUG;_WINDOWS;NOMINMAX;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>"..\..\..\..\..\cinder-dev\include";..\include</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>cinder-$(PlatformToolset).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>"..\..\..\..\lib\msw\$(PlatformTarget)"</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding />
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\libpd\cpp\PdBase.cpp" />
+    <ClCompile Include="..\..\..\libpd\cpp\PdTypes.cpp" />
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\s_libpdmidi.c" />
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\util\ringbuffer.c" />
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\util\z_print_util.c" />
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\util\z_queued.c" />
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\x_libpdreceive.c" />
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\z_hooks.c" />
+    <ClCompile Include="..\..\..\libpd\libpd_wrapper\z_libpd.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_arithmetic.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_array.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_ctl.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_dac.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_delay.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_fft.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_fftroutine.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_fftsg_h.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_fft_mayer.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_filter.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_global.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_math.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_misc.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_osc.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_resample.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_soundfile.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\d_ugen.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_all_guis.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_array.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_bang.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_canvas.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_editor.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_graph.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_guiconnect.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_hdial.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_hslider.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_io.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_mycanvas.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_numbox.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_readwrite.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_rtext.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_scalar.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_template.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_text.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_toggle.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_traversal.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_vdial.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_vslider.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\g_vumeter.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_atom.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_binbuf.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_class.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_conf.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_glob.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_memory.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_obj.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_pd.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\m_sched.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_audio.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_audio_dummy.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_file.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_inter.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_loader.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_main.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_path.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_print.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\s_utf8.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_acoustics.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_arithmetic.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_array.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_connective.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_gui.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_interface.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_list.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_midi.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_misc.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_net.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_scalar.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_text.c" />
+    <ClCompile Include="..\..\..\libpd\pure-data\src\x_time.c" />
+    <ClCompile Include="..\..\..\src\PureDataNode.cpp" />
+    <ClCompile Include="..\src\PureDataTestApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\libpd\cpp\PdBase.hpp" />
+    <ClInclude Include="..\..\..\libpd\cpp\PdMidiReceiver.hpp" />
+    <ClInclude Include="..\..\..\libpd\cpp\PdReceiver.hpp" />
+    <ClInclude Include="..\..\..\libpd\cpp\PdTypes.hpp" />
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\util\ringbuffer.h" />
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\util\z_print_util.h" />
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\util\z_queued.h" />
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\x_libpdreceive.h" />
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\z_hooks.h" />
+    <ClInclude Include="..\..\..\libpd\libpd_wrapper\z_libpd.h" />
+    <ClInclude Include="..\..\..\libpd\pure-data\src\g_all_guis.h" />
+    <ClInclude Include="..\..\..\libpd\pure-data\src\g_canvas.h" />
+    <ClInclude Include="..\..\..\libpd\pure-data\src\m_imp.h" />
+    <ClInclude Include="..\..\..\libpd\pure-data\src\m_pd.h" />
+    <ClInclude Include="..\..\..\libpd\pure-data\src\s_stuff.h" />
+    <ClInclude Include="..\..\..\libpd\pure-data\src\s_utf8.h" />
+    <ClInclude Include="..\..\..\src\PureDataNode.h" />
+    <ClInclude Include="..\include\Resources.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

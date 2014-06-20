@@ -56,7 +56,7 @@ void PureDataTestApp::setupBasic()
 {
 	mPureDataNode->disconnectAll();
 
-	mPatch = mPureDataNode->loadPatch( loadResource( RES_BASIC_PD_PATCH ) );
+	mPatch = mPureDataNode->loadPatch( loadAsset( "basic.pd" ) );
 	CI_LOG_V( "loaded patch: " << mPatch->filename() );
 
 	mPureDataNode >> audio::master()->getOutput();
@@ -67,13 +67,13 @@ void PureDataTestApp::setupFileInput()
 	mPureDataNode->disconnectAll();
 
 	auto ctx = audio::master();
-	mSourceFile = audio::load( loadResource( "cash_satisfied_mind.mp3" ), ctx->getSampleRate() );
+	mSourceFile = audio::load( loadResource( RES_MUSIC_MP3 ), ctx->getSampleRate() );
 
 	mPlayerNode = ctx->makeNode( new audio::BufferPlayerNode( mSourceFile->loadBuffer() ) );
 	mPlayerNode->setLoopEnabled();
 	CI_LOG_V( "BufferPlayerNode frames: " << mPlayerNode->getNumFrames() );
 
-	mPatch = mPureDataNode->loadPatch( loadResource( RES_INPUT_PD_PATCH ) );
+	mPatch = mPureDataNode->loadPatch( loadAsset( "input.pd" ) );
 	CI_LOG_V( "loaded patch: " << mPatch->filename() );
 
 	mPlayerNode >> mPureDataNode >> ctx->getOutput();
@@ -85,7 +85,8 @@ void PureDataTestApp::setupUI()
 	mPlayButton.setEnabled( audio::master()->isEnabled() );
 	mWidgets.push_back( &mPlayButton );
 
-	mTestSelector.mSegments = { "sinetone", "file input" };
+	mTestSelector.mSegments.push_back( "sinetone" );
+	mTestSelector.mSegments.push_back( "file input" );
 	mWidgets.push_back( &mTestSelector );
 
 #if defined( CINDER_COCOA_TOUCH )

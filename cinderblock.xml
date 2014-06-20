@@ -12,7 +12,8 @@
 
 	<includePath>libpd/cpp</includePath>
 	<includePath>libpd/libpd_wrapper</includePath>
-	<includePath>libpd/pure_data</includePath>
+	<includePath>libpd/libpd_wrapper/util</includePath>
+	<includePath>libpd/pure_data/src</includePath>
 	<includePath>src</includePath>
 
 	<headerPattern>src/*.h</headerPattern>

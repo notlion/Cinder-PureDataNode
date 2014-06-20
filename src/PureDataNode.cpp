@@ -63,7 +63,7 @@ void PureDataNode::process( audio::Buffer *buffer )
 	}
 }
 
-PatchRef PureDataNode::loadPatch( ci::DataSourceRef dataSource )
+PatchRef PureDataNode::loadPatch( const DataSourceRef &dataSource )
 {
 	if( ! isInitialized() )
 		getContext()->initializeNode( shared_from_this() );
