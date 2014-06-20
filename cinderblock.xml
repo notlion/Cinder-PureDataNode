@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <cinder>
 <block
-	name="Cinder-Pd2"
-	id="org.libcinder.dart"
+	name="PureDataNode"
+	id="org.rte.puredatanode"
 	author="Richard Eakin"
 	license="BSD"
-	summary="Testing block that provdes a 'PdNode' for ci::audio2"
-	git="git://github.com/reakinator/Cinder-Pd2.git"
-	version="testing"
+	summary="Packages libpd and provides a 'PureDataNode' for ci::audio"
+	git="git@github.com:richardeakin/Cinder-PureDataNode.git"
+	version="0.5"
 	>
-
-	<!-- this places audio2 inside Cinder-Pd2 - why? -->
-	<!-- <requires>org.libcinder.audio2</requires> -->
 
 	<includePath>libpd/</includePath>
 	<includePath>src</includePath>
