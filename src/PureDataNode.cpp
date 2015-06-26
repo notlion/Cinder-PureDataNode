@@ -121,7 +121,7 @@ void PureDataNode::sendFloat(const std::string &dest, float value) {
 //   return mPdBase.readArray(arrayName, dest, readLen, offset);
 // }
 
-void PureDataNode::writeArray(const std::string &name, std::vector<float> &source, int length,
+void PureDataNode::writeArray(const std::string &name, std::vector<float> source, int length,
                               int offset) {
   queueTask([=](pd::PdBase &pd) mutable {
     auto success = pd.writeArray(name, source, length, offset);

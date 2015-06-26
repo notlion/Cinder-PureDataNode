@@ -86,7 +86,7 @@ public:
 
   // bool readArray(const std::string &arrayName, std::vector<float> &dest, int readLen = -1,
   //                int offset = 0);
-  void writeArray(const std::string &name, std::vector<float> &source, int length = -1,
+  void writeArray(const std::string &name, std::vector<float> source, int length = -1,
                   int offset = 0);
   void clearArray(const std::string &name, int value = 0);
 };
