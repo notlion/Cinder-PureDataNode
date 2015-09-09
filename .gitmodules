@@ -1,6 +1,6 @@
-[submodule "libpd"]
-	path = libpd
-	url = git@github.com:libpd/libpd.git
 [submodule "deps/readerwriterqueue"]
 	path = deps/readerwriterqueue
 	url = https://github.com/cameron314/readerwriterqueue.git
+[submodule "deps/libpd"]
+	path = deps/libpd
+	url = https://github.com/libpd/libpd.git
