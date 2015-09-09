@@ -8,7 +8,7 @@ using namespace ci;
 
 namespace cipd {
 
-PureDataNode::PureDataNode(const Format &format) : Node(format) {
+PureDataNode::PureDataNode(const Format &format) : Node{ format }, mAudioTasks{ 64 } {
   if (getChannelMode() != ChannelMode::SPECIFIED) {
     setChannelMode(ChannelMode::SPECIFIED);
     setNumChannels(2);
@@ -16,6 +16,7 @@ PureDataNode::PureDataNode(const Format &format) : Node(format) {
 }
 
 void PureDataNode::initialize() {
+  mPdBase.setReceiver(this);
   mNumTicksPerBlock = getFramesPerBlock() / pd::PdBase::blockSize();
 
   auto numChannels = getNumChannels();
@@ -40,8 +41,12 @@ void PureDataNode::uninitialize() {
 }
 
 void PureDataNode::process(audio::Buffer *buffer) {
-  while (!mPendingTasks.empty()) {
-    mPendingTasks.pop()(mPdBase);
+  {
+    Task task;
+    for (bool success = true; success;) {
+      success = mAudioTasks.try_dequeue(task);
+      if (success) task(mPdBase);
+    }
   }
 
   if (getNumChannels() > 1) {
@@ -81,11 +86,7 @@ void PureDataNode::loadPatch(ci::DataSourceRef dataSource) {
 // }
 
 void PureDataNode::queueTask(Task &&task) {
-  mPendingTasks.emplace(task);
-}
-
-void PureDataNode::setReceiver(pd::PdReceiver* receiver) {
-  queueTask([=](pd::PdBase &pd) { pd.setReceiver(receiver); });
+  mAudioTasks.enqueue(task);
 }
 
 void PureDataNode::subscribe(const std::string &address) {
@@ -130,6 +131,35 @@ void PureDataNode::writeArray(const std::string &name, std::vector<float> source
 
 void PureDataNode::clearArray(const std::string &name, int value) {
   queueTask([=](pd::PdBase &pd) { pd.clearArray(name, value); });
+}
+
+void PureDataNode::print(const std::string &message) {
+  CI_LOG_I(message);
+}
+
+void PureDataNode::receiveFloat(const std::string &address, float value) {
+  mMessages.enqueue({ Message::kTypeFloat, address, value });
+}
+
+void PureDataNode::receiveBang(const std::string &address) {
+  mMessages.enqueue({ Message::kTypeBang, address });
+}
+
+void PureDataNode::receiveAll(pd::PdReceiver &receiver) {
+  Message msg;
+  for (bool success = true; success;) {
+    success = mMessages.try_dequeue(msg);
+    if (success) {
+      switch (msg.type) {
+        case Message::kTypeBang: {
+          receiver.receiveBang(msg.address);
+        } break;
+        case Message::kTypeFloat: {
+          receiver.receiveFloat(msg.address, msg.value);
+        } break;
+      }
+    }
+  }
 }
 
 } // namespace cipd

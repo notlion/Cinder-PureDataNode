@@ -7,73 +7,45 @@
 #include "cinder/audio/Node.h"
 #include "cinder/Thread.h"
 
-#include <queue>
+#include "readerwriterqueue.h"
 
 namespace cipd {
-
-namespace detail {
-
-template <typename T>
-class LockedQueue {
-  std::queue<T> mQueue;
-  mutable std::mutex mMutex;
-
-public:
-  void push(const T &item) {
-    std::lock_guard<std::mutex> lock(mMutex);
-    mQueue.push(item);
-  }
-
-  template <typename... Args>
-  void emplace(Args &&... args) {
-    std::lock_guard<std::mutex> lock(mMutex);
-    mQueue.emplace(std::forward<Args>(args)...);
-  }
-
-  T pop() {
-    std::lock_guard<std::mutex> lock(mMutex);
-    auto item = std::move(mQueue.front());
-    mQueue.pop();
-    return item;
-  }
-
-  bool empty() const {
-    std::lock_guard<std::mutex> lock(mMutex);
-    return mQueue.empty();
-  }
-};
-
-} // detail
 
 typedef std::shared_ptr<pd::Patch> PatchRef;
 typedef std::shared_ptr<class PureDataNode> PureDataNodeRef;
 
-class PureDataNode : public ci::audio::Node {
+class PureDataNode : public ci::audio::Node, public pd::PdReceiver {
   pd::PdBase mPdBase;
   size_t mNumTicksPerBlock;
 
   ci::audio::BufferInterleaved mBufferInterleaved;
 
   using Task = std::function<void(pd::PdBase &)>;
-  detail::LockedQueue<Task> mPendingTasks;
+  moodycamel::ReaderWriterQueue<Task> mAudioTasks;
+
+  struct Message {
+    enum Type { kTypeBang, kTypeFloat } type;
+    std::string address;
+    float value;
+  };
+  moodycamel::ReaderWriterQueue<Message> mMessages;
 
 public:
   PureDataNode(const Format &format = Format());
 
   void initialize() override;
   void uninitialize() override;
-  void process(ci::audio::Buffer *buffer);
 
-//  pd::PdBase &getPd() {
-//    return mPdBase;
-//  }
+  void print(const std::string &message) override;
+  void receiveFloat(const std::string &address, float value) override;
+  void receiveBang(const std::string &address) override;
+
+  void process(ci::audio::Buffer *buffer);
 
   void loadPatch(ci::DataSourceRef dataSource);
   // void closePatch(const PatchRef &patch);
 
   void queueTask(Task &&task);
-
-  void setReceiver(pd::PdReceiver* receiver);
   void subscribe(const std::string &address);
 
   // thread-safe senders
@@ -89,6 +61,8 @@ public:
   void writeArray(const std::string &name, std::vector<float> source, int length = -1,
                   int offset = 0);
   void clearArray(const std::string &name, int value = 0);
+
+  void receiveAll(pd::PdReceiver &receiver);
 };
 
 } // namespace cipd
