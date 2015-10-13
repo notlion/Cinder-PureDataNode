@@ -6,6 +6,7 @@
 
 #include "cinder/audio/Node.h"
 #include "cinder/Thread.h"
+#include "cinder/DataSource.h"
 
 #include "readerwriterqueue.h"
 
