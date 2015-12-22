@@ -1,34 +1,101 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <cinder>
-<block
-	name="PureDataNode"
-	id="org.rte.puredatanode"
-	author="Richard Eakin"
-	license="BSD"
-	summary="Packages libpd and provides a 'PureDataNode' for ci::audio"
-	git="git@github.com:richardeakin/Cinder-PureDataNode.git"
-	version="0.5"
-	>
+<block name="PureDataNode"
+       id="org.cinder.puredatanode"
+       author="Richard Eakin, Ryan Alexander"
+       license="BSD"
+       summary="Packages libpd and provides a 'PureDataNode' for ci::audio"
+       git="git@github.com:notlion/Cinder-PureDataNode.git"
+       version="0.6"
+       >
 
-	<includePath>libpd/cpp</includePath>
-	<includePath>libpd/libpd_wrapper</includePath>
-	<includePath>libpd/pure_data</includePath>
-	<includePath>src</includePath>
+  <includePath>src</includePath>
+  <includePath>deps/libpd/cpp</includePath>
+  <includePath>deps/libpd/libpd_wrapper</includePath>
+  <includePath>deps/libpd/pure-data/src</includePath>
+  <includePath>deps/readerwriterqueue</includePath>
 
-	<headerPattern>src/*.h</headerPattern>
-	<sourcePattern>src/*.cpp</sourcePattern>
-	<headerPattern>libpd/cpp/*.hpp</headerPattern>
-	<sourcePattern>libpd/cpp/*.cpp</sourcePattern>
-	<headerPattern>libpd/pure-data/src/*.h</headerPattern>
-	<sourcePattern>libpd/pure-data/src/*.c</sourcePattern>
-	<headerPattern>libpd/libpd_wrapper/*.h</headerPattern>
-	<sourcePattern>libpd/libpd_wrapper/*.c</sourcePattern>
-	<headerPattern>libpd/libpd_wrapper/util/*.h</headerPattern>
-	<sourcePattern>libpd/libpd_wrapper/util/*.c</sourcePattern>
+  <headerPattern>src/*.h</headerPattern>
+  <sourcePattern>src/*.cpp</sourcePattern>
+  <headerPattern>deps/libpd/cpp/*.hpp</headerPattern>
+  <sourcePattern>deps/libpd/cpp/*.cpp</sourcePattern>
+  <headerPattern>deps/libpd/libpd_wrapper/*.h</headerPattern>
+  <sourcePattern>deps/libpd/libpd_wrapper/*.c</sourcePattern>
+  <headerPattern>deps/libpd/libpd_wrapper/util/*.h</headerPattern>
+  <sourcePattern>deps/libpd/libpd_wrapper/util/*.c</sourcePattern>
 
-	<preprocessorDefine>PD</preprocessorDefine>
-	<preprocessorDefine>USEAPI_DUMMY</preprocessorDefine>
-	<preprocessorDefine>HAVEAPI_DUMMY</preprocessorDefine>
-	<preprocessorDefine>HAVE_UNISTD_H</preprocessorDefine>
+  <source>deps/libpd/pure-data/src/d_arithmetic.c</source>
+  <source>deps/libpd/pure-data/src/d_array.c</source>
+  <source>deps/libpd/pure-data/src/d_ctl.c</source>
+  <source>deps/libpd/pure-data/src/d_dac.c</source>
+  <source>deps/libpd/pure-data/src/d_delay.c</source>
+  <source>deps/libpd/pure-data/src/d_fft.c</source>
+  <source>deps/libpd/pure-data/src/x_array.c</source>
+  <source>deps/libpd/pure-data/src/d_filter.c</source>
+  <source>deps/libpd/pure-data/src/d_global.c</source>
+  <source>deps/libpd/pure-data/src/d_math.c</source>
+  <source>deps/libpd/pure-data/src/d_misc.c</source>
+  <source>deps/libpd/pure-data/src/d_osc.c</source>
+  <source>deps/libpd/pure-data/src/d_resample.c</source>
+  <source>deps/libpd/pure-data/src/d_soundfile.c</source>
+  <source>deps/libpd/pure-data/src/d_ugen.c</source>
+  <source>deps/libpd/pure-data/src/g_all_guis.c</source>
+  <source>deps/libpd/pure-data/src/g_array.c</source>
+  <source>deps/libpd/pure-data/src/g_bang.c</source>
+  <source>deps/libpd/pure-data/src/g_canvas.c</source>
+  <source>deps/libpd/pure-data/src/g_editor.c</source>
+  <source>deps/libpd/pure-data/src/g_graph.c</source>
+  <source>deps/libpd/pure-data/src/g_guiconnect.c</source>
+  <source>deps/libpd/pure-data/src/g_hdial.c</source>
+  <source>deps/libpd/pure-data/src/g_hslider.c</source>
+  <source>deps/libpd/pure-data/src/g_io.c</source>
+  <source>deps/libpd/pure-data/src/g_mycanvas.c</source>
+  <source>deps/libpd/pure-data/src/g_numbox.c</source>
+  <source>deps/libpd/pure-data/src/g_readwrite.c</source>
+  <source>deps/libpd/pure-data/src/g_rtext.c</source>
+  <source>deps/libpd/pure-data/src/g_scalar.c</source>
+  <source>deps/libpd/pure-data/src/g_template.c</source>
+  <source>deps/libpd/pure-data/src/g_text.c</source>
+  <source>deps/libpd/pure-data/src/g_toggle.c</source>
+  <source>deps/libpd/pure-data/src/g_traversal.c</source>
+  <source>deps/libpd/pure-data/src/g_vdial.c</source>
+  <source>deps/libpd/pure-data/src/g_vslider.c</source>
+  <source>deps/libpd/pure-data/src/g_vumeter.c</source>
+  <source>deps/libpd/pure-data/src/m_atom.c</source>
+  <source>deps/libpd/pure-data/src/m_binbuf.c</source>
+  <source>deps/libpd/pure-data/src/m_class.c</source>
+  <source>deps/libpd/pure-data/src/m_conf.c</source>
+  <source>deps/libpd/pure-data/src/m_glob.c</source>
+  <source>deps/libpd/pure-data/src/m_memory.c</source>
+  <source>deps/libpd/pure-data/src/m_obj.c</source>
+  <source>deps/libpd/pure-data/src/m_pd.c</source>
+  <source>deps/libpd/pure-data/src/m_sched.c</source>
+  <source>deps/libpd/pure-data/src/s_audio.c</source>
+  <source>deps/libpd/pure-data/src/s_audio_dummy.c</source>
+  <source>deps/libpd/pure-data/src/s_file.c</source>
+  <source>deps/libpd/pure-data/src/s_inter.c</source>
+  <source>deps/libpd/pure-data/src/s_loader.c</source>
+  <source>deps/libpd/pure-data/src/s_main.c</source>
+  <source>deps/libpd/pure-data/src/s_path.c</source>
+  <source>deps/libpd/pure-data/src/s_print.c</source>
+  <source>deps/libpd/pure-data/src/s_utf8.c</source>
+  <source>deps/libpd/pure-data/src/x_acoustics.c</source>
+  <source>deps/libpd/pure-data/src/x_arithmetic.c</source>
+  <source>deps/libpd/pure-data/src/x_connective.c</source>
+  <source>deps/libpd/pure-data/src/x_gui.c</source>
+  <source>deps/libpd/pure-data/src/x_interface.c</source>
+  <source>deps/libpd/pure-data/src/x_list.c</source>
+  <source>deps/libpd/pure-data/src/x_midi.c</source>
+  <source>deps/libpd/pure-data/src/x_misc.c</source>
+  <source>deps/libpd/pure-data/src/x_net.c</source>
+  <source>deps/libpd/pure-data/src/x_time.c</source>
+  <source>deps/libpd/pure-data/src/x_text.c</source>
+  <source>deps/libpd/pure-data/src/d_fft_fftsg.c</source>
+  <source>deps/libpd/pure-data/src/x_scalar.c</source>
+
+  <preprocessorDefine>PD</preprocessorDefine>
+  <preprocessorDefine>USEAPI_DUMMY</preprocessorDefine>
+  <preprocessorDefine>HAVEAPI_DUMMY</preprocessorDefine>
+  <preprocessorDefine>HAVE_UNISTD_H</preprocessorDefine>
 </block>
 </cinder>
