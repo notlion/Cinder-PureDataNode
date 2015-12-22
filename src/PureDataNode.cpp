@@ -63,30 +63,31 @@ void PureDataNode::process(audio::Buffer *buffer) {
   mPdBase.receiveMessages();
 }
 
-void PureDataNode::loadPatch(ci::DataSourceRef dataSource) {
+std::future<PatchRef> PureDataNode::loadPatch(const ci::DataSourceRef &dataSource) {
   if (!isInitialized()) {
     getContext()->initializeNode(shared_from_this());
   }
 
   const fs::path &path = dataSource->getFilePath();
 
-  queueTask([=](pd::PdBase &pd) {
+  return queueTaskWithReturn([path](pd::PdBase &pd) {
     auto patch = pd.openPatch(path.filename().string(), path.parent_path().string());
     if (!patch.isValid()) {
-      CI_LOG_E("could not open patch from dataSource: " << path);
+      CI_LOG_E("Could not open patch from dataSource: " << path);
+      return PatchRef();
     }
+    return std::make_shared<pd::Patch>(std::move(patch));
   });
 }
 
-// void PureDataNode::closePatch(const PatchRef &patch) {
-//   if (!patch) return;
-
-//   lock_guard<mutex> lock(mMutex);
-//   mPdBase.closePatch(*patch);
-// }
+void PureDataNode::closePatch(const PatchRef &patch) {
+  if (patch) {
+    queueTask([=](pd::PdBase &pd) { pd.closePatch(*patch); });
+  }
+}
 
 void PureDataNode::queueTask(Task &&task) {
-  mAudioTasks.enqueue(task);
+  mAudioTasks.enqueue(std::move(task));
 }
 
 void PureDataNode::subscribe(const std::string &address) {
@@ -101,31 +102,33 @@ void PureDataNode::sendFloat(const std::string &dest, float value) {
   queueTask([=](pd::PdBase &pd) { pd.sendFloat(dest, value); });
 }
 
-// void PureDataNode::sendSymbol(const std::string &dest, const std::string &symbol) {
-//   queueTask([=](pd::PdBase &pd) { pd.sendSymbol(dest, symbol); });
-// }
+void PureDataNode::sendSymbol(const std::string &dest, const std::string &symbol) {
+  queueTask([=](pd::PdBase &pd) { pd.sendSymbol(dest, symbol); });
+}
 
-// void PureDataNode::sendList(const std::string &dest, const pd::List &list) {
-//   lock_guard<mutex> lock(mMutex);
-//   mPdBase.sendList(dest, list);
-// }
+void PureDataNode::sendList(const std::string &dest, const pd::List &list) {
+  queueTask([=](pd::PdBase &pd) { pd.sendList(dest, list); });
+}
 
-// void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
-//                                const pd::List &list) {
-//   lock_guard<mutex> lock(mMutex);
-//   mPdBase.sendMessage(dest, msg, list);
-// }
+void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
+                               const pd::List &list) {
+  queueTask([=](pd::PdBase &pd) { pd.sendMessage(dest, msg, list); });
+}
 
-// bool PureDataNode::readArray(const std::string &arrayName, std::vector<float> &dest, int readLen,
-//                              int offset) {
-//   lock_guard<mutex> lock(mMutex);
-//   return mPdBase.readArray(arrayName, dest, readLen, offset);
-// }
+std::future<std::vector<float>> PureDataNode::readArray(const std::string &arrayName, int readLen,
+                                                        int offset) {
+  return queueTaskWithReturn([=](pd::PdBase &pd) {
+    std::vector<float> dest;
+    mPdBase.readArray(arrayName, dest, readLen, offset);
+    return dest;
+  });
+}
 
-void PureDataNode::writeArray(const std::string &name, std::vector<float> source, int length,
+void PureDataNode::writeArray(const std::string &name, const std::vector<float> &source, int length,
                               int offset) {
-  queueTask([=](pd::PdBase &pd) mutable {
-    auto success = pd.writeArray(name, source, length, offset);
+  queueTask([=](pd::PdBase &pd) {
+    // NOTE(ryan): source is internal to this lambda, so it's okay to cast away the const-ness.
+    pd.writeArray(name, const_cast<std::vector<float> &>(source), length, offset);
   });
 }
 
