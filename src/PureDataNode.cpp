@@ -119,7 +119,7 @@ std::future<std::vector<float>> PureDataNode::readArray(const std::string &array
                                                         int offset) {
   return queueTaskWithReturn([=](pd::PdBase &pd) {
     std::vector<float> dest;
-    mPdBase.readArray(arrayName, dest, readLen, offset);
+    pd.readArray(arrayName, dest, readLen, offset);
     return dest;
   });
 }
