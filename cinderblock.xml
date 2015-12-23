@@ -30,7 +30,7 @@
   <source>deps/libpd/pure-data/src/d_dac.c</source>
   <source>deps/libpd/pure-data/src/d_delay.c</source>
   <source>deps/libpd/pure-data/src/d_fft.c</source>
-  <source>deps/libpd/pure-data/src/x_array.c</source>
+  <source>deps/libpd/pure-data/src/d_fft_fftsg.c</source>
   <source>deps/libpd/pure-data/src/d_filter.c</source>
   <source>deps/libpd/pure-data/src/d_global.c</source>
   <source>deps/libpd/pure-data/src/d_math.c</source>
@@ -81,6 +81,7 @@
   <source>deps/libpd/pure-data/src/s_utf8.c</source>
   <source>deps/libpd/pure-data/src/x_acoustics.c</source>
   <source>deps/libpd/pure-data/src/x_arithmetic.c</source>
+  <source>deps/libpd/pure-data/src/x_array.c</source>
   <source>deps/libpd/pure-data/src/x_connective.c</source>
   <source>deps/libpd/pure-data/src/x_gui.c</source>
   <source>deps/libpd/pure-data/src/x_interface.c</source>
@@ -88,10 +89,9 @@
   <source>deps/libpd/pure-data/src/x_midi.c</source>
   <source>deps/libpd/pure-data/src/x_misc.c</source>
   <source>deps/libpd/pure-data/src/x_net.c</source>
-  <source>deps/libpd/pure-data/src/x_time.c</source>
-  <source>deps/libpd/pure-data/src/x_text.c</source>
-  <source>deps/libpd/pure-data/src/d_fft_fftsg.c</source>
   <source>deps/libpd/pure-data/src/x_scalar.c</source>
+  <source>deps/libpd/pure-data/src/x_text.c</source>
+  <source>deps/libpd/pure-data/src/x_time.c</source>
 
   <preprocessorDefine>PD</preprocessorDefine>
   <preprocessorDefine>USEAPI_DUMMY</preprocessorDefine>
