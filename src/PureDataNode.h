@@ -17,7 +17,7 @@ namespace cipd {
 typedef std::shared_ptr<pd::Patch> PatchRef;
 typedef std::shared_ptr<class PureDataNode> PureDataNodeRef;
 
-class PureDataNode : public ci::audio::Node, public pd::PdReceiver {
+class PureDataNode : public ci::audio::Node, public pd::PdReceiver, public pd::PdMidiReceiver {
   pd::PdBase mPdBase;
   size_t mNumTicksPerBlock;
 
@@ -33,6 +33,13 @@ class PureDataNode : public ci::audio::Node, public pd::PdReceiver {
   };
   moodycamel::ReaderWriterQueue<Message> mMessages;
 
+  struct MidiNote {
+    int channel;
+    int pitch;
+    int velocity;
+  };
+  moodycamel::ReaderWriterQueue<MidiNote> mMidiNotes;
+
 public:
   PureDataNode(const Format &format = Format());
 
@@ -42,6 +49,8 @@ public:
   void print(const std::string &message) override;
   void receiveFloat(const std::string &address, float value) override;
   void receiveBang(const std::string &address) override;
+
+  void receiveNoteOn(const int channel, const int pitch, const int velocity) override;
 
   void process(ci::audio::Buffer *buffer) override;
 
@@ -79,6 +88,7 @@ public:
   void clearArray(const std::string &name, int value = 0);
 
   void receiveAll(pd::PdReceiver &receiver);
+  void receiveAllMidi(pd::PdMidiReceiver &receiver);
 };
 
 } // namespace cipd

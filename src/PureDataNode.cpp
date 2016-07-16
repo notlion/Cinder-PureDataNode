@@ -17,6 +17,7 @@ PureDataNode::PureDataNode(const Format &format) : Node{ format }, mAudioTasks{ 
 
 void PureDataNode::initialize() {
   mPdBase.setReceiver(this);
+  mPdBase.setMidiReceiver(this);
   mNumTicksPerBlock = getFramesPerBlock() / pd::PdBase::blockSize();
 
   auto numChannels = getNumChannels();
@@ -61,6 +62,7 @@ void PureDataNode::process(audio::Buffer *buffer) {
   }
 
   mPdBase.receiveMessages();
+  mPdBase.receiveMidi();
 }
 
 std::future<PatchRef> PureDataNode::loadPatch(const ci::DataSourceRef &dataSource) {
@@ -148,6 +150,10 @@ void PureDataNode::receiveBang(const std::string &address) {
   mMessages.enqueue({ Message::kTypeBang, address });
 }
 
+void PureDataNode::receiveNoteOn(const int channel, const int pitch, const int velocity) {
+  mMidiNotes.enqueue({ channel, pitch, velocity });
+}
+
 void PureDataNode::receiveAll(pd::PdReceiver &receiver) {
   Message msg;
   for (bool success = true; success;) {
@@ -161,6 +167,16 @@ void PureDataNode::receiveAll(pd::PdReceiver &receiver) {
           receiver.receiveFloat(msg.address, msg.value);
         } break;
       }
+    }
+  }
+}
+
+void PureDataNode::receiveAllMidi(pd::PdMidiReceiver &receiver) {
+  MidiNote note;
+  for (bool success = true; success;) {
+    success = mMidiNotes.try_dequeue(note);
+    if (success) {
+      receiver.receiveNoteOn(note.channel, note.pitch, note.velocity);
     }
   }
 }
