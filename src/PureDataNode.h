@@ -23,8 +23,12 @@ class PureDataNode : public ci::audio::Node, public pd::PdReceiver {
 
   ci::audio::BufferInterleaved mBufferInterleaved;
 
+  // NOTE(ryan): Tasks must unfortunately be wrapped in a unique_ptr here to get around an
+  // alignment restruction imposed by ConcurrentQueue. On armv7 max_align_t is 4 byte aligned
+  // while std::function is 8, which is disallowed by ConcurrentQueue's implementation.
   using Task = std::function<void(pd::PdBase &)>;
-  moodycamel::ConcurrentQueue<Task> mAudioTasks;
+  using TaskPtr = std::unique_ptr<Task>;
+  moodycamel::ConcurrentQueue<TaskPtr> mAudioTasks;
 
   struct Message {
     enum Type { kTypeBang, kTypeFloat } type;
@@ -71,7 +75,6 @@ public:
   void sendList(const std::string &dest, const pd::List &list);
   void sendMessage(const std::string &dest, const std::string &msg,
                    const pd::List &list = pd::List());
-  void sendMidiByte(int port, int value);
 
   std::future<std::vector<float>> readArray(const std::string &arrayName, int readLen = -1,
                                             int offset = 0);

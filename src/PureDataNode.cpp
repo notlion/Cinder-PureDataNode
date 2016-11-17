@@ -42,10 +42,10 @@ void PureDataNode::uninitialize() {
 
 void PureDataNode::process(audio::Buffer *buffer) {
   {
-    Task task;
+    TaskPtr task;
     for (bool success = true; success;) {
       success = mAudioTasks.try_dequeue(task);
-      if (success) task(mPdBase);
+      if (success) (*task)(mPdBase);
     }
   }
 
@@ -87,7 +87,7 @@ void PureDataNode::closePatch(const PatchRef &patch) {
 }
 
 void PureDataNode::queueTask(Task &&task) {
-  mAudioTasks.enqueue(std::move(task));
+  mAudioTasks.enqueue(std::make_unique<Task>(std::move(task)));
 }
 
 void PureDataNode::subscribe(const std::string &address) {
@@ -113,10 +113,6 @@ void PureDataNode::sendList(const std::string &dest, const pd::List &list) {
 void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
                                const pd::List &list) {
   queueTask([=](pd::PdBase &pd) { pd.sendMessage(dest, msg, list); });
-}
-
-void PureDataNode::sendMidiByte(int port, int value) {
-  queueTask([=](pd::PdBase &pd) { pd.sendMidiByte(port, value); });
 }
 
 std::future<std::vector<float>> PureDataNode::readArray(const std::string &arrayName, int readLen,
