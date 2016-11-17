@@ -27,7 +27,7 @@ void PureDataNode::initialize() {
   }
 
   queueTask([=](pd::PdBase &pd) {
-    bool success = pd.init(numChannels, numChannels, sampleRate);
+    bool success = pd.init(int(numChannels), int(numChannels), int(sampleRate));
     CI_ASSERT(success);
 
     // in libpd world, dsp computation is controlled through the process methods,
@@ -52,12 +52,12 @@ void PureDataNode::process(audio::Buffer *buffer) {
   if (getNumChannels() > 1) {
     audio::dsp::interleaveBuffer(buffer, &mBufferInterleaved);
 
-    mPdBase.processFloat(mNumTicksPerBlock, mBufferInterleaved.getData(),
+    mPdBase.processFloat(int(mNumTicksPerBlock), mBufferInterleaved.getData(),
                          mBufferInterleaved.getData());
 
     audio::dsp::deinterleaveBuffer(&mBufferInterleaved, buffer);
   } else {
-    mPdBase.processFloat(mNumTicksPerBlock, buffer->getData(), buffer->getData());
+    mPdBase.processFloat(int(mNumTicksPerBlock), buffer->getData(), buffer->getData());
   }
 
   mPdBase.receiveMessages();
@@ -113,6 +113,10 @@ void PureDataNode::sendList(const std::string &dest, const pd::List &list) {
 void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
                                const pd::List &list) {
   queueTask([=](pd::PdBase &pd) { pd.sendMessage(dest, msg, list); });
+}
+
+void PureDataNode::sendMidiByte(int port, int value) {
+  queueTask([=](pd::PdBase &pd) { pd.sendMidiByte(port, value); });
 }
 
 std::future<std::vector<float>> PureDataNode::readArray(const std::string &arrayName, int readLen,

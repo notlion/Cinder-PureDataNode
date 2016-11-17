@@ -8,7 +8,7 @@
 #include "cinder/Thread.h"
 #include "cinder/DataSource.h"
 
-#include "readerwriterqueue.h"
+#include "concurrentqueue.h"
 
 #include <future>
 
@@ -24,14 +24,14 @@ class PureDataNode : public ci::audio::Node, public pd::PdReceiver {
   ci::audio::BufferInterleaved mBufferInterleaved;
 
   using Task = std::function<void(pd::PdBase &)>;
-  moodycamel::ReaderWriterQueue<Task> mAudioTasks;
+  moodycamel::ConcurrentQueue<Task> mAudioTasks;
 
   struct Message {
     enum Type { kTypeBang, kTypeFloat } type;
     std::string address;
     float value;
   };
-  moodycamel::ReaderWriterQueue<Message> mMessages;
+  moodycamel::ConcurrentQueue<Message> mMessages;
 
 public:
   PureDataNode(const Format &format = Format());
@@ -71,6 +71,7 @@ public:
   void sendList(const std::string &dest, const pd::List &list);
   void sendMessage(const std::string &dest, const std::string &msg,
                    const pd::List &list = pd::List());
+  void sendMidiByte(int port, int value);
 
   std::future<std::vector<float>> readArray(const std::string &arrayName, int readLen = -1,
                                             int offset = 0);
