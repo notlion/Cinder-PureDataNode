@@ -4,12 +4,13 @@
 #include "PdReceiver.hpp"
 #include "PdTypes.hpp"
 
-#include "cinder/audio/Node.h"
-#include "cinder/Thread.h"
 #include "cinder/DataSource.h"
+#include "cinder/Thread.h"
+#include "cinder/audio/Node.h"
 
 #include "concurrentqueue.h"
 
+#include <boost/variant.hpp>
 #include <future>
 
 namespace cipd {
@@ -28,14 +29,24 @@ class PureDataNode : public ci::audio::Node, public pd::PdReceiver {
   // while std::function is 8, which is disallowed by ConcurrentQueue's implementation.
   using Task = std::function<void(pd::PdBase &)>;
   using TaskPtr = std::unique_ptr<Task>;
-  moodycamel::ConcurrentQueue<TaskPtr> mAudioTasks;
 
-  struct Message {
-    enum Type { kTypeBang, kTypeFloat } type;
+  struct BangMessage {
+    std::string address;
+  };
+
+  struct FloatMessage {
     std::string address;
     float value;
   };
-  moodycamel::ConcurrentQueue<Message> mMessages;
+
+  struct SymbolMessage {
+    std::string address;
+    std::string symbol;
+  };
+
+  using QueueItem = boost::variant<boost::blank, TaskPtr, BangMessage, FloatMessage, SymbolMessage>;
+
+  moodycamel::ConcurrentQueue<QueueItem> mQueueToAudio, mQueueFromAudio;
 
 public:
   PureDataNode(const Format &format = Format());
@@ -44,8 +55,9 @@ public:
   void uninitialize() override;
 
   void print(const std::string &message) override;
-  void receiveFloat(const std::string &address, float value) override;
   void receiveBang(const std::string &address) override;
+  void receiveFloat(const std::string &address, float value) override;
+  void receiveSymbol(const std::string &address, const std::string &symbol) override;
 
   void process(ci::audio::Buffer *buffer) override;
 

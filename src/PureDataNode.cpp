@@ -1,14 +1,15 @@
 #include "PureDataNode.h"
 
+#include "cinder/Log.h"
 #include "cinder/audio/Context.h"
 #include "cinder/audio/dsp/Converter.h"
-#include "cinder/Log.h"
 
 using namespace ci;
 
 namespace cipd {
 
-PureDataNode::PureDataNode(const Format &format) : Node{ format }, mAudioTasks{ 64 } {
+PureDataNode::PureDataNode(const Format &format)
+: Node{ format }, mQueueToAudio{ 64 }, mQueueFromAudio{ 64 } {
   if (getChannelMode() != ChannelMode::SPECIFIED) {
     setChannelMode(ChannelMode::SPECIFIED);
     setNumChannels(2);
@@ -42,10 +43,34 @@ void PureDataNode::uninitialize() {
 
 void PureDataNode::process(audio::Buffer *buffer) {
   {
-    TaskPtr task;
+    QueueItem item;
     for (bool success = true; success;) {
-      success = mAudioTasks.try_dequeue(task);
-      if (success) (*task)(mPdBase);
+      success = mQueueToAudio.try_dequeue(item);
+      if (success) {
+        switch (item.which()) {
+          case 0:
+            break;
+
+          case 1: {
+            (*boost::get<TaskPtr>(item))(mPdBase);
+          } break;
+
+          case 2: {
+            const auto &msg = boost::get<BangMessage>(item);
+            mPdBase.sendBang(msg.address);
+          } break;
+
+          case 3: {
+            const auto &msg = boost::get<FloatMessage>(item);
+            mPdBase.sendFloat(msg.address, msg.value);
+          } break;
+
+          case 4: {
+            const auto &msg = boost::get<SymbolMessage>(item);
+            mPdBase.sendSymbol(msg.address, msg.symbol);
+          } break;
+        }
+      }
     }
   }
 
@@ -87,7 +112,7 @@ void PureDataNode::closePatch(const PatchRef &patch) {
 }
 
 void PureDataNode::queueTask(Task &&task) {
-  mAudioTasks.enqueue(std::make_unique<Task>(std::move(task)));
+  mQueueToAudio.enqueue(QueueItem(std::make_unique<Task>(std::move(task))));
 }
 
 void PureDataNode::subscribe(const std::string &address) {
@@ -95,15 +120,15 @@ void PureDataNode::subscribe(const std::string &address) {
 }
 
 void PureDataNode::sendBang(const std::string &dest) {
-  queueTask([=](pd::PdBase &pd) { pd.sendBang(dest); });
+  mQueueToAudio.enqueue(QueueItem(BangMessage{ dest }));
 }
 
 void PureDataNode::sendFloat(const std::string &dest, float value) {
-  queueTask([=](pd::PdBase &pd) { pd.sendFloat(dest, value); });
+  mQueueToAudio.enqueue(QueueItem(FloatMessage{ dest, value }));
 }
 
 void PureDataNode::sendSymbol(const std::string &dest, const std::string &symbol) {
-  queueTask([=](pd::PdBase &pd) { pd.sendSymbol(dest, symbol); });
+  mQueueToAudio.enqueue(QueueItem(SymbolMessage{ dest, symbol }));
 }
 
 void PureDataNode::sendList(const std::string &dest, const pd::List &list) {
@@ -136,29 +161,49 @@ void PureDataNode::clearArray(const std::string &name, int value) {
   queueTask([=](pd::PdBase &pd) { pd.clearArray(name, value); });
 }
 
+
 void PureDataNode::print(const std::string &message) {
   CI_LOG_I(message);
 }
 
-void PureDataNode::receiveFloat(const std::string &address, float value) {
-  mMessages.enqueue({ Message::kTypeFloat, address, value });
+void PureDataNode::receiveBang(const std::string &address) {
+  mQueueFromAudio.enqueue(QueueItem(BangMessage{ address }));
 }
 
-void PureDataNode::receiveBang(const std::string &address) {
-  mMessages.enqueue({ Message::kTypeBang, address });
+void PureDataNode::receiveFloat(const std::string &address, float value) {
+  mQueueFromAudio.enqueue(QueueItem(FloatMessage{ address, value }));
 }
+
+void PureDataNode::receiveSymbol(const std::string &address, const std::string &symbol) {
+  mQueueFromAudio.enqueue(QueueItem(SymbolMessage{ address, symbol }));
+}
+
 
 void PureDataNode::receiveAll(pd::PdReceiver &receiver) {
-  Message msg;
+  QueueItem item;
   for (bool success = true; success;) {
-    success = mMessages.try_dequeue(msg);
+    success = mQueueFromAudio.try_dequeue(item);
     if (success) {
-      switch (msg.type) {
-        case Message::kTypeBang: {
+      switch (item.which()) {
+        case 0:
+          break;
+
+        case 1:
+          break;
+
+        case 2: {
+          const auto &msg = boost::get<BangMessage>(item);
           receiver.receiveBang(msg.address);
         } break;
-        case Message::kTypeFloat: {
+
+        case 3: {
+          const auto &msg = boost::get<FloatMessage>(item);
           receiver.receiveFloat(msg.address, msg.value);
+        } break;
+
+        case 4: {
+          const auto &msg = boost::get<SymbolMessage>(item);
+          receiver.receiveSymbol(msg.address, msg.symbol);
         } break;
       }
     }
