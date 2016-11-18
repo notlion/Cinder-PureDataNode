@@ -75,7 +75,9 @@ void PureDataNode::process(audio::Buffer *buffer) {
   }
 
   if (getNumChannels() > 1) {
-    audio::dsp::interleaveBuffer(buffer, &mBufferInterleaved);
+    if (getNumConnectedInputs() > 0) {
+      audio::dsp::interleaveBuffer(buffer, &mBufferInterleaved);
+    }
 
     mPdBase.processFloat(int(mNumTicksPerBlock), mBufferInterleaved.getData(),
                          mBufferInterleaved.getData());
