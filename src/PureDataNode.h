@@ -19,6 +19,7 @@ typedef std::shared_ptr<pd::Patch> PatchRef;
 typedef std::shared_ptr<class PureDataNode> PureDataNodeRef;
 
 class PureDataNode : public ci::audio::Node, public pd::PdReceiver {
+protected:
   pd::PdBase mPdBase;
   size_t mNumTicksPerBlock;
 
