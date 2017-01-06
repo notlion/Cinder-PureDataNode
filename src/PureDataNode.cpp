@@ -147,7 +147,7 @@ void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
   queueTask([=](pd::PdBase &pd) { pd.sendMessage(dest, msg, list); });
 }
 
-void PureDataNode::sendMidiNoteOn(int port, int pitch, int velocity) {
+void PureDataNode::sendNoteOn(int port, int pitch, int velocity) {
   queueTask([=](pd::PdBase &pd) { pd.sendNoteOn(port, pitch, velocity); } );
 }
 
