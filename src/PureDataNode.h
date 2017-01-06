@@ -45,7 +45,13 @@ protected:
     std::string symbol;
   };
 
-  using QueueItem = boost::variant<boost::blank, TaskPtr, BangMessage, FloatMessage, SymbolMessage>;
+  struct MidiNoteOn {
+    int channel;
+    int pitch;
+    int velocity;
+  };
+
+  using QueueItem = boost::variant<boost::blank, TaskPtr, BangMessage, FloatMessage, SymbolMessage, MidiNoteOn>;
 
   moodycamel::ConcurrentQueue<QueueItem> mQueueToAudio, mQueueFromAudio;
 
@@ -88,6 +94,7 @@ public:
   void sendList(const std::string &dest, const pd::List &list);
   void sendMessage(const std::string &dest, const std::string &msg,
                    const pd::List &list = pd::List());
+  void sendMidiNoteOn(int port, int pitch, int velocity);
 
   std::future<std::vector<float>> readArray(const std::string &arrayName, int readLen = -1,
                                             int offset = 0);

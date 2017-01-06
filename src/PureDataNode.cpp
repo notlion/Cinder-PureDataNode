@@ -69,6 +69,11 @@ void PureDataNode::process(audio::Buffer *buffer) {
             const auto &msg = boost::get<SymbolMessage>(item);
             mPdBase.sendSymbol(msg.address, msg.symbol);
           } break;
+
+          case 5: {
+            const auto &note = boost::get<MidiNoteOn>(item);
+            mPdBase.sendNoteOn(note.channel, note.pitch, note.velocity);
+          }
         }
       }
     }
@@ -140,6 +145,10 @@ void PureDataNode::sendList(const std::string &dest, const pd::List &list) {
 void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
                                const pd::List &list) {
   queueTask([=](pd::PdBase &pd) { pd.sendMessage(dest, msg, list); });
+}
+
+void PureDataNode::sendMidiNoteOn(int port, int pitch, int velocity) {
+  queueTask([=](pd::PdBase &pd) { pd.sendNoteOn(port, pitch, velocity); } );
 }
 
 std::future<std::vector<float>> PureDataNode::readArray(const std::string &arrayName, int readLen,
