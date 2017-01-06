@@ -71,7 +71,7 @@ void PureDataNode::process(audio::Buffer *buffer) {
           } break;
 
           case 5: {
-            const auto &note = boost::get<MidiNoteOn>(item);
+            const auto &note = boost::get<NoteOn>(item);
             mPdBase.sendNoteOn(note.channel, note.pitch, note.velocity);
           }
         }

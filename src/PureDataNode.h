@@ -45,13 +45,13 @@ protected:
     std::string symbol;
   };
 
-  struct MidiNoteOn {
+  struct NoteOn {
     int channel;
     int pitch;
     int velocity;
   };
 
-  using QueueItem = boost::variant<boost::blank, TaskPtr, BangMessage, FloatMessage, SymbolMessage, MidiNoteOn>;
+  using QueueItem = boost::variant<boost::blank, TaskPtr, BangMessage, FloatMessage, SymbolMessage, NoteOn>;
 
   moodycamel::ConcurrentQueue<QueueItem> mQueueToAudio, mQueueFromAudio;
 
