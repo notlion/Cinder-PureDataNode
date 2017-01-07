@@ -78,17 +78,17 @@ void PureDataNode::process(audio::Buffer *buffer) {
           case 6: {
             const auto &note = boost::get<Note>(item);
             mPdBase.sendNoteOn(note.channel, note.pitch, note.velocity);
-          }
+          } break;
 
           case 7: {
             const auto &ctrl = boost::get<ControlChange>(item);
             mPdBase.sendControlChange(ctrl.channel, ctrl.controller, ctrl.value);
-          }
+          } break;
 
           case 8: {
             const auto &pb = boost::get<PitchBend>(item);
             mPdBase.sendPitchBend(pb.channel, pb.value);
-          }
+          } break;
         }
       }
     }
