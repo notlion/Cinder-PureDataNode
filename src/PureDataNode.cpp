@@ -71,8 +71,23 @@ void PureDataNode::process(audio::Buffer *buffer) {
           } break;
 
           case 5: {
+            const auto &midiByte = boost::get<MidiByte>(item);
+            mPdBase.sendMidiByte(midiByte.port, midiByte.byte);
+          } break;
+
+          case 6: {
             const auto &note = boost::get<Note>(item);
             mPdBase.sendNoteOn(note.channel, note.pitch, note.velocity);
+          }
+
+          case 7: {
+            const auto &ctrl = boost::get<ControlChange>(item);
+            mPdBase.sendControlChange(ctrl.channel, ctrl.controller, ctrl.value);
+          }
+
+          case 8: {
+            const auto &pb = boost::get<PitchBend>(item);
+            mPdBase.sendPitchBend(pb.channel, pb.value);
           }
         }
       }
@@ -147,8 +162,20 @@ void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
   queueTask([=](pd::PdBase &pd) { pd.sendMessage(dest, msg, list); });
 }
 
+void PureDataNode::sendMidiByte(int port, int byte) {
+  mQueueToAudio.enqueue(QueueItem(MidiByte{ port, byte }));
+}
+
 void PureDataNode::sendNoteOn(int channel, int pitch, int velocity) {
   mQueueToAudio.enqueue(QueueItem(Note{ channel, pitch, velocity }));
+}
+
+void PureDataNode::sendControlChange(int channel, int controller, int value) {
+  mQueueToAudio.enqueue(QueueItem(ControlChange{ channel, controller, value }));
+}
+
+void PureDataNode::sendPitchBend(int channel, int value) {
+  mQueueToAudio.enqueue(QueueItem(PitchBend{ channel, value }));
 }
 
 std::future<std::vector<float>> PureDataNode::readArray(const std::string &arrayName, int readLen,
