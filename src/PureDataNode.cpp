@@ -148,7 +148,7 @@ void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
 }
 
 void PureDataNode::sendNoteOn(int channel, int pitch, int velocity) {
-  mQueueToAudio.enqueue(QueueItem(Note { channel, pitch, velocity } ));
+  mQueueToAudio.enqueue(QueueItem(Note{ channel, pitch, velocity }));
 }
 
 std::future<std::vector<float>> PureDataNode::readArray(const std::string &arrayName, int readLen,
