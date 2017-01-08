@@ -9,7 +9,7 @@ using namespace ci;
 namespace cipd {
 
 PureDataNode::PureDataNode(const Format &format)
-: Node{ format }, mQueueToAudio{ 64 }, mQueueFromAudio{ 64 } {
+: Node{ format } {
   if (getChannelMode() != ChannelMode::SPECIFIED) {
     setChannelMode(ChannelMode::SPECIFIED);
     setNumChannels(2);
