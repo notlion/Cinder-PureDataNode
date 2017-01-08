@@ -45,7 +45,57 @@ protected:
     std::string symbol;
   };
 
-  using QueueItem = boost::variant<boost::blank, TaskPtr, BangMessage, FloatMessage, SymbolMessage>;
+  struct Note {
+    int channel;
+    int pitch;
+    int velocity;
+  };
+
+  struct ControlChange {
+    int channel;
+    int controller;
+    int value;
+  };
+
+  struct ProgramChange {
+    int channel;
+    int value;
+  };
+
+  struct PitchBend {
+    int channel;
+    int value;
+  };
+
+  struct AfterTouch {
+    int channel;
+    int value;
+  };
+
+  struct PolyAfterTouch {
+    int channel;
+    int pitch;
+    int value;
+  };
+
+  struct MidiByte {
+    int port;
+    int value;
+  };
+
+  struct Sysex {
+    int port;
+    int value;
+  };
+
+  struct SysRealTime {
+    int port;
+    int value;
+  };
+
+  using QueueItem = boost::variant<boost::blank, TaskPtr, BangMessage, FloatMessage, SymbolMessage,
+                                   Note, ControlChange, ProgramChange, PitchBend, AfterTouch,
+                                   PolyAfterTouch, MidiByte, Sysex, SysRealTime>;
 
   moodycamel::ConcurrentQueue<QueueItem> mQueueToAudio, mQueueFromAudio;
 
@@ -88,6 +138,15 @@ public:
   void sendList(const std::string &dest, const pd::List &list);
   void sendMessage(const std::string &dest, const std::string &msg,
                    const pd::List &list = pd::List());
+  void sendNoteOn(int channel, int pitch, int velocity);
+  void sendControlChange(int channel, int controller, int value);
+  void sendProgramChange(int channel, int value);
+  void sendPitchBend(int channel, int value);
+  void sendAfterTouch(int channel, int value);
+  void sendPolyAfterTouch(int channel, int pitch, int value);
+  void sendMidiByte(int port, int byte);
+  void sendSysex(int port, int byte);
+  void sendSysRealTime(int port, int byte);
 
   std::future<std::vector<float>> readArray(const std::string &arrayName, int readLen = -1,
                                             int offset = 0);

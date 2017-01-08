@@ -69,6 +69,51 @@ void PureDataNode::process(audio::Buffer *buffer) {
             const auto &msg = boost::get<SymbolMessage>(item);
             mPdBase.sendSymbol(msg.address, msg.symbol);
           } break;
+
+          case 5: {
+            const auto &note = boost::get<Note>(item);
+            mPdBase.sendNoteOn(note.channel, note.pitch, note.velocity);
+          } break;
+
+          case 6: {
+            const auto &ctrl = boost::get<ControlChange>(item);
+            mPdBase.sendControlChange(ctrl.channel, ctrl.controller, ctrl.value);
+          } break;
+
+          case 7: {
+            const auto &pgm = boost::get<ProgramChange>(item);
+            mPdBase.sendProgramChange(pgm.channel, pgm.value);
+          } break;
+
+          case 8: {
+            const auto &pb = boost::get<PitchBend>(item);
+            mPdBase.sendPitchBend(pb.channel, pb.value);
+          } break;
+
+          case 9: {
+            const auto &at = boost::get<AfterTouch>(item);
+            mPdBase.sendAftertouch(at.channel, at.value);
+          } break;
+
+          case 10: {
+            const auto &pat = boost::get<PolyAfterTouch>(item);
+            mPdBase.sendPolyAftertouch(pat.channel, pat.pitch, pat.value);
+          } break;
+
+          case 11: {
+            const auto &midiByte = boost::get<MidiByte>(item);
+            mPdBase.sendMidiByte(midiByte.port, midiByte.value);
+          } break;
+
+          case 12: {
+            const auto &sys = boost::get<Sysex>(item);
+            mPdBase.sendSysex(sys.port, sys.value);
+          } break;
+
+          case 13: {
+            const auto &sysrt = boost::get<SysRealTime>(item);
+            mPdBase.sendSysRealTime(sysrt.port, sysrt.value);
+          } break;
         }
       }
     }
@@ -141,6 +186,43 @@ void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
                                const pd::List &list) {
   queueTask([=](pd::PdBase &pd) { pd.sendMessage(dest, msg, list); });
 }
+
+void PureDataNode::sendNoteOn(int channel, int pitch, int velocity) {
+  mQueueToAudio.enqueue(QueueItem(Note{ channel, pitch, velocity }));
+}
+
+void PureDataNode::sendControlChange(int channel, int controller, int value) {
+  mQueueToAudio.enqueue(QueueItem(ControlChange{ channel, controller, value }));
+}
+
+void PureDataNode::sendProgramChange(int channel, int value) {
+  mQueueToAudio.enqueue(QueueItem(ProgramChange{ channel, value }));
+}
+
+void PureDataNode::sendPitchBend(int channel, int value) {
+  mQueueToAudio.enqueue(QueueItem(PitchBend{ channel, value }));
+}
+
+void PureDataNode::sendAfterTouch(int channel, int value) {
+  mQueueToAudio.enqueue(QueueItem(AfterTouch{ channel, value }));
+}
+
+void PureDataNode::sendPolyAfterTouch(int channel, int pitch, int value) {
+  mQueueToAudio.enqueue(QueueItem(PolyAfterTouch{ channel, pitch, value }));
+}
+
+void PureDataNode::sendMidiByte(int port, int byte) {
+  mQueueToAudio.enqueue(QueueItem(MidiByte{ port, byte }));
+}
+
+void PureDataNode::sendSysex(int port, int byte) {
+  mQueueToAudio.enqueue(QueueItem(Sysex{ port, byte }));
+}
+
+void PureDataNode::sendSysRealTime(int port, int byte) {
+  mQueueToAudio.enqueue(QueueItem(SysRealTime{ port, byte }));
+}
+
 
 std::future<std::vector<float>> PureDataNode::readArray(const std::string &arrayName, int readLen,
                                                         int offset) {
