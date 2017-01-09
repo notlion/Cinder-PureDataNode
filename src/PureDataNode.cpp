@@ -41,84 +41,84 @@ void PureDataNode::uninitialize() {
   queueTask([](pd::PdBase &pd) { pd.computeAudio(false); });
 }
 
-void PureDataNode::process(audio::Buffer *buffer) {
-  {
-    QueueItem item;
-    for (bool success = true; success;) {
-      success = mQueueToAudio.try_dequeue(item);
-      if (success) {
-        switch (item.which()) {
-          case 0:
-            break;
+void PureDataNode::processQueueToAudio() {
+  QueueItem item;
+  for (bool success = true; success;) {
+    success = mQueueToAudio.try_dequeue(item);
+    if (success) {
+      switch (item.which()) {
+        case 0:
+          break;
 
-          case 1: {
-            (*boost::get<TaskPtr>(item))(mPdBase);
-          } break;
+        case 1: {
+          (*boost::get<TaskPtr>(item))(mPdBase);
+        } break;
 
-          case 2: {
-            const auto &msg = boost::get<BangMessage>(item);
-            mPdBase.sendBang(msg.address);
-          } break;
+        case 2: {
+          const auto &msg = boost::get<BangMessage>(item);
+          mPdBase.sendBang(msg.address);
+        } break;
 
-          case 3: {
-            const auto &msg = boost::get<FloatMessage>(item);
-            mPdBase.sendFloat(msg.address, msg.value);
-          } break;
+        case 3: {
+          const auto &msg = boost::get<FloatMessage>(item);
+          mPdBase.sendFloat(msg.address, msg.value);
+        } break;
 
-          case 4: {
-            const auto &msg = boost::get<SymbolMessage>(item);
-            mPdBase.sendSymbol(msg.address, msg.symbol);
-          } break;
+        case 4: {
+          const auto &msg = boost::get<SymbolMessage>(item);
+          mPdBase.sendSymbol(msg.address, msg.symbol);
+        } break;
 
-          case 5: {
-            const auto &note = boost::get<Note>(item);
-            mPdBase.sendNoteOn(note.channel, note.pitch, note.velocity);
-          } break;
+        case 5: {
+          const auto &note = boost::get<Note>(item);
+          mPdBase.sendNoteOn(note.channel, note.pitch, note.velocity);
+        } break;
 
-          case 6: {
-            const auto &ctrl = boost::get<ControlChange>(item);
-            mPdBase.sendControlChange(ctrl.channel, ctrl.controller, ctrl.value);
-          } break;
+        case 6: {
+          const auto &ctrl = boost::get<ControlChange>(item);
+          mPdBase.sendControlChange(ctrl.channel, ctrl.controller, ctrl.value);
+        } break;
 
-          case 7: {
-            const auto &pgm = boost::get<ProgramChange>(item);
-            mPdBase.sendProgramChange(pgm.channel, pgm.value);
-          } break;
+        case 7: {
+          const auto &pgm = boost::get<ProgramChange>(item);
+          mPdBase.sendProgramChange(pgm.channel, pgm.value);
+        } break;
 
-          case 8: {
-            const auto &pb = boost::get<PitchBend>(item);
-            mPdBase.sendPitchBend(pb.channel, pb.value);
-          } break;
+        case 8: {
+          const auto &pb = boost::get<PitchBend>(item);
+          mPdBase.sendPitchBend(pb.channel, pb.value);
+        } break;
 
-          case 9: {
-            const auto &at = boost::get<AfterTouch>(item);
-            mPdBase.sendAftertouch(at.channel, at.value);
-          } break;
+        case 9: {
+          const auto &at = boost::get<AfterTouch>(item);
+          mPdBase.sendAftertouch(at.channel, at.value);
+        } break;
 
-          case 10: {
-            const auto &pat = boost::get<PolyAfterTouch>(item);
-            mPdBase.sendPolyAftertouch(pat.channel, pat.pitch, pat.value);
-          } break;
+        case 10: {
+          const auto &pat = boost::get<PolyAfterTouch>(item);
+          mPdBase.sendPolyAftertouch(pat.channel, pat.pitch, pat.value);
+        } break;
 
-          case 11: {
-            const auto &midiByte = boost::get<MidiByte>(item);
-            mPdBase.sendMidiByte(midiByte.port, midiByte.value);
-          } break;
+        case 11: {
+          const auto &midiByte = boost::get<MidiByte>(item);
+          mPdBase.sendMidiByte(midiByte.port, midiByte.value);
+        } break;
 
-          case 12: {
-            const auto &sys = boost::get<Sysex>(item);
-            mPdBase.sendSysex(sys.port, sys.value);
-          } break;
+        case 12: {
+          const auto &sys = boost::get<Sysex>(item);
+          mPdBase.sendSysex(sys.port, sys.value);
+        } break;
 
-          case 13: {
-            const auto &sysrt = boost::get<SysRealTime>(item);
-            mPdBase.sendSysRealTime(sysrt.port, sysrt.value);
-          } break;
-        }
+        case 13: {
+          const auto &sysrt = boost::get<SysRealTime>(item);
+          mPdBase.sendSysRealTime(sysrt.port, sysrt.value);
+        } break;
       }
     }
   }
+}
 
+void PureDataNode::processAudio(audio::Buffer *buffer) {
   if (getNumChannels() > 1) {
     if (getNumConnectedInputs() > 0) {
       audio::dsp::interleaveBuffer(buffer, &mBufferInterleaved);
@@ -131,7 +131,11 @@ void PureDataNode::process(audio::Buffer *buffer) {
   } else {
     mPdBase.processFloat(int(mNumTicksPerBlock), buffer->getData(), buffer->getData());
   }
+}
 
+void PureDataNode::process(audio::Buffer *buffer) {
+  processQueueToAudio();
+  processAudio(buffer);
   mPdBase.receiveMessages();
 }
 

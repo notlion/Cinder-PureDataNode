@@ -99,6 +99,9 @@ protected:
 
   moodycamel::ConcurrentQueue<QueueItem> mQueueToAudio, mQueueFromAudio;
 
+  void processQueueToAudio();
+  void processAudio(ci::audio::Buffer *buffer);
+
 public:
   PureDataNode(const Format &format = Format());
 
