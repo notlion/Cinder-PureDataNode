@@ -9,7 +9,7 @@ using namespace ci;
 namespace cipd {
 
 PureDataNode::PureDataNode(const Format &format)
-: Node{ format } {
+: Node{ format }, mMaxMessagesToProcessPerBlock{ std::numeric_limits<size_t>::max() } {
   if (getChannelMode() != ChannelMode::SPECIFIED) {
     setChannelMode(ChannelMode::SPECIFIED);
     setNumChannels(2);
@@ -41,9 +41,15 @@ void PureDataNode::uninitialize() {
   queueTask([](pd::PdBase &pd) { pd.computeAudio(false); });
 }
 
+void PureDataNode::setMaxMessagesToProcessPerBlock(size_t maxMessages) {
+  mMaxMessagesToProcessPerBlock = maxMessages;
+}
+
 void PureDataNode::processQueueToAudio() {
   QueueItem item;
-  for (bool success = true; success;) {
+  bool success = true;
+
+  for (size_t i = 0; success && i < mMaxMessagesToProcessPerBlock; ++i) {
     success = mQueueToAudio.try_dequeue(item);
     if (success) {
       switch (item.which()) {

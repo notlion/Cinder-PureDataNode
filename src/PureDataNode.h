@@ -10,6 +10,7 @@
 
 #include "concurrentqueue.h"
 
+#include <atomic>
 #include <boost/variant.hpp>
 #include <future>
 
@@ -21,7 +22,9 @@ typedef std::shared_ptr<class PureDataNode> PureDataNodeRef;
 class PureDataNode : public ci::audio::Node, public pd::PdReceiver {
 protected:
   pd::PdBase mPdBase;
-  size_t mNumTicksPerBlock;
+
+  std::size_t mNumTicksPerBlock;
+  std::atomic_size_t mMaxMessagesToProcessPerBlock;
 
   ci::audio::BufferInterleaved mBufferInterleaved;
 
@@ -125,6 +128,7 @@ public:
   void initialize() override;
   void uninitialize() override;
 
+  void setMaxMessagesToProcessPerBlock(std::size_t max);
 
   void print(const std::string &message) override;
   void process(ci::audio::Buffer *buffer) override;
