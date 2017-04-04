@@ -124,11 +124,12 @@ void PureDataNode::processAudio(audio::Buffer *buffer) {
       audio::dsp::interleaveBuffer(buffer, &mBufferInterleaved);
     }
 
-    mPdBase.processFloat(int(mNumTicksPerBlock), mBufferInterleaved.getData(),
-                         mBufferInterleaved.getData());
+    mPdBase.processFloat(
+        int(mNumTicksPerBlock), mBufferInterleaved.getData(), mBufferInterleaved.getData());
 
     audio::dsp::deinterleaveBuffer(&mBufferInterleaved, buffer);
-  } else {
+  }
+  else {
     mPdBase.processFloat(int(mNumTicksPerBlock), buffer->getData(), buffer->getData());
   }
 }
@@ -186,7 +187,8 @@ void PureDataNode::sendList(const std::string &dest, const pd::List &list) {
   queueTask([=](pd::PdBase &pd) { pd.sendList(dest, list); });
 }
 
-void PureDataNode::sendMessage(const std::string &dest, const std::string &msg,
+void PureDataNode::sendMessage(const std::string &dest,
+                               const std::string &msg,
                                const pd::List &list) {
   queueTask([=](pd::PdBase &pd) { pd.sendMessage(dest, msg, list); });
 }
@@ -228,7 +230,8 @@ void PureDataNode::sendSysRealTime(int port, int byte) {
 }
 
 
-std::future<std::vector<float>> PureDataNode::readArray(const std::string &arrayName, int readLen,
+std::future<std::vector<float>> PureDataNode::readArray(const std::string &arrayName,
+                                                        int readLen,
                                                         int offset) {
   return queueTaskWithReturn([=](pd::PdBase &pd) {
     std::vector<float> dest;
@@ -237,7 +240,9 @@ std::future<std::vector<float>> PureDataNode::readArray(const std::string &array
   });
 }
 
-void PureDataNode::writeArray(const std::string &name, const std::vector<float> &source, int length,
+void PureDataNode::writeArray(const std::string &name,
+                              const std::vector<float> &source,
+                              int length,
                               int offset) {
   queueTask([=](pd::PdBase &pd) {
     // NOTE(ryan): source is internal to this lambda, so it's okay to cast away the const-ness.

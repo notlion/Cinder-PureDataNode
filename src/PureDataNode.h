@@ -93,14 +93,31 @@ protected:
     int value;
   };
 
-  using QueueItem = boost::variant<boost::blank, TaskPtr, BangMessage, FloatMessage, SymbolMessage,
-                                   Note, ControlChange, ProgramChange, PitchBend, AfterTouch,
-                                   PolyAfterTouch, MidiByte, Sysex, SysRealTime>;
+  using QueueItem = boost::variant<boost::blank,
+                                   TaskPtr,
+                                   BangMessage,
+                                   FloatMessage,
+                                   SymbolMessage,
+                                   Note,
+                                   ControlChange,
+                                   ProgramChange,
+                                   PitchBend,
+                                   AfterTouch,
+                                   PolyAfterTouch,
+                                   MidiByte,
+                                   Sysex,
+                                   SysRealTime>;
 
   moodycamel::ConcurrentQueue<QueueItem> mQueueToAudio, mQueueFromAudio;
 
   void processQueueToAudio();
   void processAudio(ci::audio::Buffer *buffer);
+
+  void receiveBang(const std::string &address) override;
+  void receiveFloat(const std::string &address, float value) override;
+  void receiveSymbol(const std::string &address, const std::string &symbol) override;
+
+  friend pd::PdBase;
 
 public:
   PureDataNode(const Format &format = Format());
@@ -108,11 +125,8 @@ public:
   void initialize() override;
   void uninitialize() override;
 
-  void print(const std::string &message) override;
-  void receiveBang(const std::string &address) override;
-  void receiveFloat(const std::string &address, float value) override;
-  void receiveSymbol(const std::string &address, const std::string &symbol) override;
 
+  void print(const std::string &message) override;
   void process(ci::audio::Buffer *buffer) override;
 
   std::future<PatchRef> loadPatch(const ci::DataSourceRef &dataSource);
@@ -120,7 +134,7 @@ public:
 
   void queueTask(Task &&task);
 
-  template <typename Fn>
+  template<typename Fn>
   std::future<typename std::result_of<Fn(pd::PdBase &)>::type> queueTaskWithReturn(Fn &&task) {
     using ReturnType = typename std::result_of<Fn(pd::PdBase &)>::type;
 
@@ -139,7 +153,8 @@ public:
   void sendFloat(const std::string &dest, float value);
   void sendSymbol(const std::string &dest, const std::string &symbol);
   void sendList(const std::string &dest, const pd::List &list);
-  void sendMessage(const std::string &dest, const std::string &msg,
+  void sendMessage(const std::string &dest,
+                   const std::string &msg,
                    const pd::List &list = pd::List());
   void sendNoteOn(int channel, int pitch, int velocity);
   void sendControlChange(int channel, int controller, int value);
@@ -151,9 +166,12 @@ public:
   void sendSysex(int port, int byte);
   void sendSysRealTime(int port, int byte);
 
-  std::future<std::vector<float>> readArray(const std::string &arrayName, int readLen = -1,
+  std::future<std::vector<float>> readArray(const std::string &arrayName,
+                                            int readLen = -1,
                                             int offset = 0);
-  void writeArray(const std::string &name, const std::vector<float> &source, int length = -1,
+  void writeArray(const std::string &name,
+                  const std::vector<float> &source,
+                  int length = -1,
                   int offset = 0);
   void clearArray(const std::string &name, int value = 0);
 
