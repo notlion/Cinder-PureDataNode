@@ -4,6 +4,8 @@
 #include "cinder/audio/Context.h"
 #include "cinder/audio/dsp/Converter.h"
 
+#include "z_libpd.h"
+
 using namespace ci;
 
 namespace cipd {
@@ -140,10 +142,23 @@ void PureDataNode::processAudio(audio::Buffer *buffer) {
   }
 }
 
+void PureDataNode::updateGui() {
+#if !defined(CINDER_COCOA_TOUCH) && !defined(CINDER_ANDROID)
+  if (mGuiRunning) {
+    libpd_poll_gui();
+  }
+#endif
+}
+
 void PureDataNode::process(audio::Buffer *buffer) {
   processQueueToAudio();
   processAudio(buffer);
+
   mPdBase.receiveMessages();
+
+  // NOTE(ryan): Perhaps GUI shouldn't update on the audio thread, but since we don't lock around
+  // Pd's single instance this is where it happens for now.
+  updateGui();
 }
 
 std::future<PatchRef> PureDataNode::loadPatch(const ci::DataSourceRef &dataSource) {
@@ -259,6 +274,23 @@ void PureDataNode::writeArray(const std::string &name,
 void PureDataNode::clearArray(const std::string &name, int value) {
   queueTask([=](pd::PdBase &pd) { pd.clearArray(name, value); });
 }
+
+
+#if !defined(CINDER_COCOA_TOUCH) && !defined(CINDER_ANDROID)
+  void PureDataNode::startGui(const std::string &libDir) {
+    queueTask([=](pd::PdBase &pd) {
+      libpd_start_gui(libDir.c_str());
+      mGuiRunning = true;
+    });
+  }
+
+  void PureDataNode::stopGui() {
+    queueTask([=](pd::PdBase &pd) {
+      libpd_stop_gui();
+      mGuiRunning = false;
+    });
+  }
+#endif
 
 
 void PureDataNode::print(const std::string &message) {

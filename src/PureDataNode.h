@@ -28,6 +28,8 @@ protected:
 
   ci::audio::BufferInterleaved mBufferInterleaved;
 
+  bool mGuiRunning = false;
+
   // NOTE(ryan): Tasks must unfortunately be wrapped in a unique_ptr here to get around an
   // alignment restruction imposed by ConcurrentQueue. On armv7 max_align_t is 4 byte aligned
   // while std::function is 8, which is disallowed by ConcurrentQueue's implementation.
@@ -115,6 +117,7 @@ protected:
 
   void processQueueToAudio();
   void processAudio(ci::audio::Buffer *buffer);
+  void updateGui();
 
   void receiveBang(const std::string &address) override;
   void receiveFloat(const std::string &address, float value) override;
@@ -178,6 +181,11 @@ public:
                   int length = -1,
                   int offset = 0);
   void clearArray(const std::string &name, int value = 0);
+
+#if !defined(CINDER_COCOA_TOUCH) && !defined(CINDER_ANDROID)
+  void startGui(const std::string &libDir);
+  void stopGui();
+#endif
 
   void receiveAll(pd::PdReceiver &receiver);
 };
