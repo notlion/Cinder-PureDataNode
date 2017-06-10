@@ -78,46 +78,51 @@ void PureDataNode::processQueueToAudio() {
         } break;
 
         case 5: {
+          auto &write = boost::get<ArrayWrite>(item);
+          mPdBase.writeArray(write.arrayName, write.array, write.length, write.offset);
+        } break;
+
+        case 6: {
           const auto &note = boost::get<Note>(item);
           mPdBase.sendNoteOn(note.channel, note.pitch, note.velocity);
         } break;
 
-        case 6: {
+        case 7: {
           const auto &ctrl = boost::get<ControlChange>(item);
           mPdBase.sendControlChange(ctrl.channel, ctrl.controller, ctrl.value);
         } break;
 
-        case 7: {
+        case 8: {
           const auto &pgm = boost::get<ProgramChange>(item);
           mPdBase.sendProgramChange(pgm.channel, pgm.value);
         } break;
 
-        case 8: {
+        case 9: {
           const auto &pb = boost::get<PitchBend>(item);
           mPdBase.sendPitchBend(pb.channel, pb.value);
         } break;
 
-        case 9: {
+        case 10: {
           const auto &at = boost::get<AfterTouch>(item);
           mPdBase.sendAftertouch(at.channel, at.value);
         } break;
 
-        case 10: {
+        case 11: {
           const auto &pat = boost::get<PolyAfterTouch>(item);
           mPdBase.sendPolyAftertouch(pat.channel, pat.pitch, pat.value);
         } break;
 
-        case 11: {
+        case 12: {
           const auto &midiByte = boost::get<MidiByte>(item);
           mPdBase.sendMidiByte(midiByte.port, midiByte.value);
         } break;
 
-        case 12: {
+        case 13: {
           const auto &sys = boost::get<Sysex>(item);
           mPdBase.sendSysex(sys.port, sys.value);
         } break;
 
-        case 13: {
+        case 14: {
           const auto &sysrt = boost::get<SysRealTime>(item);
           mPdBase.sendSysRealTime(sysrt.port, sysrt.value);
         } break;
@@ -265,10 +270,7 @@ void PureDataNode::writeArray(const std::string &name,
                               const std::vector<float> &source,
                               int length,
                               int offset) {
-  queueTask([=](pd::PdBase &pd) {
-    // NOTE(ryan): source is internal to this lambda, so it's okay to cast away the const-ness.
-    pd.writeArray(name, const_cast<std::vector<float> &>(source), length, offset);
-  });
+  mQueueToAudio.enqueue(QueueItem(ArrayWrite{ name, source, offset, length }));
 }
 
 void PureDataNode::clearArray(const std::string &name, int value) {
