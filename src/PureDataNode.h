@@ -48,6 +48,13 @@ protected:
     std::string symbol;
   };
 
+  struct ArrayWrite {
+    std::string arrayName;
+    std::vector<float> array;
+    int offset;
+    int length;
+  };
+
   struct Note {
     int channel;
     int pitch;
@@ -101,6 +108,7 @@ protected:
                                    BangMessage,
                                    FloatMessage,
                                    SymbolMessage,
+                                   ArrayWrite,
                                    Note,
                                    ControlChange,
                                    ProgramChange,
