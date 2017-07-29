@@ -20,7 +20,7 @@ PureDataNode::PureDataNode(const Format &format)
 
 void PureDataNode::initialize() {
   mPdBase.setReceiver(this);
-  mNumTicksPerBlock = getFramesPerBlock() / pd::PdBase::blockSize();
+  mNumTicksPerBlock = int(getFramesPerBlock() / pd::PdBase::blockSize());
 
   auto numChannels = getNumChannels();
   auto sampleRate = getSampleRate();
@@ -137,13 +137,12 @@ void PureDataNode::processAudio(audio::Buffer *buffer) {
       audio::dsp::interleaveBuffer(buffer, &mBufferInterleaved);
     }
 
-    mPdBase.processFloat(
-        int(mNumTicksPerBlock), mBufferInterleaved.getData(), mBufferInterleaved.getData());
+    mPdBase.processFloat(mNumTicksPerBlock, mBufferInterleaved.getData(), mBufferInterleaved.getData());
 
     audio::dsp::deinterleaveBuffer(&mBufferInterleaved, buffer);
   }
   else {
-    mPdBase.processFloat(int(mNumTicksPerBlock), buffer->getData(), buffer->getData());
+    mPdBase.processFloat(mNumTicksPerBlock, buffer->getData(), buffer->getData());
   }
 }
 

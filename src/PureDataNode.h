@@ -23,7 +23,7 @@ class PureDataNode : public ci::audio::Node, public pd::PdReceiver {
 protected:
   pd::PdBase mPdBase;
 
-  std::size_t mNumTicksPerBlock;
+  int mNumTicksPerBlock;
   std::atomic_size_t mMaxMessagesToProcessPerBlock;
 
   ci::audio::BufferInterleaved mBufferInterleaved;
