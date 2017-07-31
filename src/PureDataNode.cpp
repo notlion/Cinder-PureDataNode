@@ -149,7 +149,7 @@ void PureDataNode::processAudio(audio::Buffer *buffer) {
 void PureDataNode::updateGui() {
 #if !defined(CINDER_COCOA_TOUCH) && !defined(CINDER_ANDROID)
   if (mGuiRunning) {
-    libpd_poll_gui();
+    libpd_pollgui();
   }
 #endif
 }
@@ -280,14 +280,14 @@ void PureDataNode::clearArray(const std::string &name, int value) {
 #if !defined(CINDER_COCOA_TOUCH) && !defined(CINDER_ANDROID)
   void PureDataNode::startGui(const std::string &libDir) {
     queueTask([=](pd::PdBase &pd) {
-      libpd_start_gui(libDir.c_str());
+      libpd_startgui(libDir.c_str());
       mGuiRunning = true;
     });
   }
 
   void PureDataNode::stopGui() {
     queueTask([=](pd::PdBase &pd) {
-      libpd_stop_gui();
+      libpd_stopgui();
       mGuiRunning = false;
     });
   }
